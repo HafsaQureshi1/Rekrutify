@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us - Rekrutify - Talent Without Borders</title>
+<meta name="description" content="Learn about Rekrutify's mission, leadership team, and vetting process. We help US businesses build high-performing remote teams, fast and affordably.">
+<link rel="icon" href="./assets/images/favicon.ico">
+<link rel="stylesheet" href="./assets/css/style.css">
+<link rel="stylesheet" href="./assets/css/fonts.css">
+<link rel="stylesheet" href="./assets/css/custom.css">
+<script>
+/* Hide the scroll-reveal elements only while JS is actually working, so the
+   page can never get stuck with half its sections at opacity 0. The watchdog
+   un-hides everything if main.js fails to load or throws before it signals
+   ready — a failure that is much easier to hit on a file:// page. */
+(function () {
+  var el = document.documentElement;
+  el.className += ' js';
+  setTimeout(function () {
+    if (!window.__rekrutifyReady) el.className = el.className.replace(/\bjs\b/, '');
+  }, 2000);
+  window.addEventListener('error', function (e) {
+    if (e.target && e.target.tagName === 'SCRIPT') el.className = el.className.replace(/\bjs\b/, '');
+  }, true);
+})();
+</script>
+</head>
+<body><!-- ============ NAVBAR ============ -->
+<div class="navbar-wrapper">
+  <nav class="navbar navbar-expand-lg">
+    <div class="navbar-container">
+      <div class="logo-container">
+        <a class="navbar-brand" href="./index.html">
+          <div class="site-logo">
+            <img alt="Rekrutify" class="img-fluid rekrutify-logo" src="./assets/images/rekrutify_dark.png" style="max-height: 40px;">
+          </div>
+        </a>
+      </div>
+      <button class="navbar-toggler nav-btn" type="button" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link" href="./index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link " href="./about.html">About</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" aria-expanded="false">Services <i class="fa-solid fa-angle-down accent-color"></i></a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/serviceoverview.html">Services Overview</a></li>
+              <li><a class="dropdown-item" href="#services">Medical Billing</a></li>
+              <li><a class="dropdown-item" href="#services">Customer Support</a></li>
+              <li><a class="dropdown-item" href="#services">IT Services</a></li>
+              <li><a class="dropdown-item" href="#services">Digital Marketing</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="./casestudy.html">Case Studies</a></li>
+          <li class="nav-item"><a class="nav-link active" href="./pricing.html">Pricing</a></li>
+          <li class="nav-item"><a class="nav-link" href="./contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="navbar-action-container">
+        <div class="navbar-action-button">
+          <button id="themeSwitch"><i id="themeIcon" class="fas fa-moon"></i></button>
+        </div>
+        <a class="btn btn-primary rounded-pill d-flex align-items-center justify-content-center" href="#contact"
+           style="padding: 12px 24px; background-color: var(--accent-color); color: var(--accent-color-2); font-weight: 600; text-decoration: none;">Start Free Trial</a>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<!-- ============ MOBILE SIDEBAR ============ -->
+<div>
+  <div class="sidebar-overlay"></div>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo mb-0">
+        <img alt="Rekrutify" class="img-fluid rekrutify-logo" src="./assets/images/rekrutify_dark.png" style="max-height: 40px;">
+      </div>
+      <button class="close-btn"><span>X</span></button>
+    </div>
+    <ul class="menu">
+      <li><a href="./index.html">Home</a></li>
+      <li><a class="active" href="./about.html">About Us</a></li>
+      <li class="sidebar-dropdown">
+        <div class="dropdown-header">
+          <a href="#services">Services</a>
+          <button class="sidebar-dropdown-btn"><i class="fa-solid fa-angle-down"></i></button>
+        </div>
+        <ul class="sidebar-dropdown-menu">
+          <li><a href="./serviceoverview.html">Services Overview</a></li>
+          <li><a href="#services">Medical Billing</a></li>
+          <li><a href="#services">Customer Support</a></li>
+          <li><a href="#services">IT Services</a></li>
+          <li><a href="#services">Digital Marketing</a></li>
+        </ul>
+      </li>
+      <li class="below-dropdown"><a href="./casestudy.html">Case Studies</a></li>
+      <li class="below-dropdown"><a href="./pricing.html">Pricing</a></li>
+      <li class="below-dropdown"><a href="./contact.html">Contact Us</a></li>
+    </ul>
+  </div>
+</div>
+
+
+
+<!-- ============ PAGE BANNER ============ -->
+<section class="section-banner" aria-label="About Page Banner" style="position: relative;">
+  <div class="digital-process-banner text-center">
+    <div class="hero-container">
+      <div class="d-flex flex-column align-items-center gspace-2">
+        <h2 class="title-heading reveal" data-anim="fadeInUp">Our Services
+</h2>
+        <div class="breadcrumb justify-content-center reveal" data-anim="fadeInUp">
+          <a href="./index.html">Home</a><span class="separator">/</span><span class="current">Services</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section" id="services" aria-label="Services Offering" style="position: relative; overflow: hidden;">
+  <div class="hero-container position-relative" style="z-index: 1;">
+    <div class="d-flex flex-column justify-content-center text-center gspace-5">
+      <div class="d-flex flex-column justify-content-center text-center gspace-2">
+        <div class="sub-heading align-self-center reveal" data-anim="fadeInUp">
+          <i class="fa-regular fa-circle-dot"></i><span>Our Core Services</span>
+        </div>
+        <h2 class="title-heading heading-container heading-container-medium reveal" data-anim="fadeInUp">Our Dynamic Staffing Solutions</h2>
+      </div>
+      <div class="card-service-wrapper">
+        <div class="row row-cols-lg-2 row-cols-md-2 row-cols-1 grid-spacer-2">
+
+          <div class="col">
+            <div>
+              <div class="card card-service card-hover-lift h-100 reveal" data-anim="fadeInUp">
+                <div class="d-flex flex-row justify-content-between gspace-2 gspace-md-3 align-items-center">
+                  <div>
+                    <div class="service-icon-wrapper">
+                      <div class="service-icon service-icon-svg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-plus" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="M9 12h6"></path><path d="M12 9v6"></path></svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="service-title"><h4>Medical Billing</h4></div>
+                </div>
+                <p>Slash your operational overhead with our vetted, highly-trained Pakistani talent handling end-to-end medical billing and RCM.</p>
+                <a class="btn btn-accent" href="#services">
+                  <div class="btn-title"><span>View Details</span></div>
+                  <div class="icon-circle"><i class="fa-solid fa-arrow-right"></i></div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div>
+              <div class="card card-service card-hover-lift h-100 reveal" data-anim="fadeInUp">
+                <div class="d-flex flex-row justify-content-between gspace-2 gspace-md-3 align-items-center">
+                  <div>
+                    <div class="service-icon-wrapper">
+                      <div class="service-icon service-icon-svg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-headset" aria-hidden="true"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z"></path><path d="M21 16v2a4 4 0 0 1-4 4h-5"></path></svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="service-title"><h4>Customer Support</h4></div>
+                </div>
+                <p>Deliver 24/7 world-class customer experiences using dedicated offshore agents who seamlessly integrate with your team.</p>
+                <a class="btn btn-accent" href="#services">
+                  <div class="btn-title"><span>View Details</span></div>
+                  <div class="icon-circle"><i class="fa-solid fa-arrow-right"></i></div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div>
+              <div class="card card-service card-hover-lift h-100 reveal" data-anim="fadeInUp">
+                <div class="d-flex flex-row justify-content-between gspace-2 gspace-md-3 align-items-center">
+                  <div>
+                    <div class="service-icon-wrapper">
+                      <div class="service-icon service-icon-svg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-terminal" aria-hidden="true"><path d="M12 19h8"></path><path d="m4 17 6-6-6-6"></path></svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="service-title"><h4>IT Services</h4></div>
+                </div>
+                <p>Scale your tech stack affordably. Our rigorous screening ensures you get top-tier developers and IT engineers ready to deploy.</p>
+                <a class="btn btn-accent" href="#services">
+                  <div class="btn-title"><span>View Details</span></div>
+                  <div class="icon-circle"><i class="fa-solid fa-arrow-right"></i></div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div>
+              <div class="card card-service card-hover-lift h-100 reveal" data-anim="fadeInUp">
+                <div class="d-flex flex-row justify-content-between gspace-2 gspace-md-3 align-items-center">
+                  <div>
+                    <div class="service-icon-wrapper">
+                      <div class="service-icon service-icon-svg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up" aria-hidden="true"><path d="M16 7h6v6"></path><path d="m22 7-8.5 8.5-5-5L2 17"></path></svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="service-title"><h4>Digital Marketing</h4></div>
+                </div>
+                <p>Drive growth with specialized marketing professionals without the local hiring costs. We supply the experts, you see the results.</p>
+                <a class="btn btn-accent" href="#services">
+                  <div class="btn-title"><span>View Details</span></div>
+                  <div class="icon-circle"><i class="fa-solid fa-arrow-right"></i></div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="service-link-footer">
+        <p>Need a custom solution? Let's create a strategy tailored for your business.<a href="./contact.html"> Get a Free Strategy Call</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GUIDE BANNER ============ -->
+<div class="section-guide">
+  <div class="guide-banner">
+    <div class="hero-container">
+      <div class="guide-content">
+        <div class="guide-video-container">
+          <button class="request-loader"><i class="fa-solid fa-play"></i></button>
+          <p>See How We Help Brands Grow</p>
+        </div>
+        <div class="d-flex flex-column gspace-2">
+          <h3 class="title-heading">Scale Your Team with Rekrutify!</h3>
+          <p>Take your operations to the next level with dedicated remote professionals who integrate seamlessly into your team. Let's build something extraordinary together!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="section" id="pricing">
+  <div class="hero-container">
+    <div class="d-flex flex-column justify-content-center text-center gspace-5">
+      <div class="d-flex flex-column gspace-2">
+        <div class="sub-heading align-self-center"><i class="fa-regular fa-circle-dot"></i><span>Our Core Services</span></div>
+        <h2 class="title-heading heading-container heading-container-short">Transparent Hourly Rates</h2>
+      </div>
+      <div class="row row-cols-lg-3 row-cols-1 grid-spacer-2">
+
+        <div class="col">
+          <div class="pricing-container">
+            <div class="card card-pricing-title">
+              <div class="spacer"></div>
+              <div class="content">
+                <h3 class="title-heading">Let's Find the Right Strategy for You!</h3>
+                <div class="link-wrapper"><a href="./contact.html">Book a Free Consultation</a><i class="fa-solid fa-arrow-circle-right"></i></div>
+              </div>
+            </div>
+            <div>
+              <div class="card card-pricing h-100">
+                <h4>Entry Level</h4>
+                <p>Best for Virtual Assistants &amp; Support agents.</p>
+                <div class="d-flex flex-row gspace-1 align-items-center h-100"><h3>From $6</h3><p>/Hour</p></div>
+                <a href="./contact.html" class="btn btn-accent">
+                  <div class="btn-title"><span>2-Week Risk-Free Trial</span></div>
+                  <div class="icon-circle"><i class="fa-solid fa-arrow-right"></i></div>
+                </a>
+                <ul class="check-list">
+                  <li><a href="#">No hidden recruitment fees</a></li>
+                  <li><a href="#">Vetted English speakers</a></li>
+                  <li><a href="#">Direct Slack/MSTeams integration</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div>
+            <div class="card card-pricing pricing-highlight h-100">
+              <div class="spacer"></div>
+              <h4>Specialized Professionals</h4>
+              <p>Mid-Level to Senior candidates with specialized skills.</p>
+              <div class="d-flex flex-row gspace-1 align-items-center"><h3>From $10</h3><p>/Hour</p></div>
+              <a href="./contact.html" class="btn btn-accent">
+                <div class="btn-title"><span>2-Week Risk-Free Trial</span></div>
+                <div class="icon-circle"><i class="fa-solid fa-arrow-right"></i></div>
+              </a>
+              <div class="core-benefits">
+                <div class="benefit"><i class="fa-solid fa-brain"></i><a href="#">Dedicated Account Manager</a></div>
+                <div class="benefit"><i class="fa-brands fa-accessible-icon"></i><a href="#">HR &amp; Compliance Included</a></div>
+                <div class="benefit"><i class="fa-solid fa-bug"></i><a href="#">Payroll Handled by Us</a></div>
+              </div>
+              <ul class="check-list">
+                <li><a href="#">IT Developers &amp; Engineers</a></li>
+                <li><a href="#">Medical Billing Specialists</a></li>
+                <li><a href="#">Senior Operations Managers</a></li>
+                <li><a href="#">Full-stack Digital Marketers</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="pricing-container">
+            <div class="card pricing-highlight-box">
+              <div class="d-flex flex-column gspace-2 w-100">
+                <h5>Your Growth, Our Priority!</h5>
+                <div class="d-flex flex-column gspace-2">
+                  <div class="pricing-highlights"><a href="#">Data-Driven Digital Marketing</a><i class="fa-solid fa-arrow-circle-right"></i></div>
+                  <div class="pricing-highlights"><a href="#">Proven Strategies for Higher</a><i class="fa-solid fa-arrow-circle-right"></i></div>
+                  <div class="pricing-highlights"><a href="#">Scalable Solution for Every Business</a><i class="fa-solid fa-arrow-circle-right"></i></div>
+                </div>
+              </div>
+              <div class="spacer"></div>
+            </div>
+            <div>
+              <div class="card card-pricing h-100">
+                <h4>Full Teams</h4>
+                <p>Best for scaling entire departments.</p>
+                <div class="d-flex flex-row gspace-1 align-items-center h-100"><h3>Custom</h3><p></p></div>
+                <a href="./contact.html" class="btn btn-accent">
+                  <div class="btn-title"><span>Talk to Sales</span></div>
+                  <div class="icon-circle"><i class="fa-solid fa-arrow-right"></i></div>
+                </a>
+                <ul class="check-list">
+                  <li><a href="#">Volume discounts</a></li>
+                  <li><a href="#">Custom sourcing strategy</a></li>
+                  <li><a href="#">Dedicated onboarding team</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ============ FOOTER ============ -->
+<div class="section-footer">
+  <div class="bg-footer-wrapper">
+    <div class="bg-footer">
+      <div class="hero-container position-relative z-2">
+        <div class="d-flex flex-column gspace-2">
+          <div class="row row-cols-lg-5 row-cols-md-2 row-cols-1 grid-spacer-5">
+            <div class="col col-lg-4">
+              <div class="footer-logo-container">
+                <div class="logo-container-footer mb-3">
+                  <img alt="Rekrutify" class="img-fluid rekrutify-logo" src="./assets/images/rekrutify_dark.png" style="max-height: 40px;">
+                </div>
+                <p>One simple hourly rate. Zero recruitment hassle. A team that feels like your own. Rekrutify &mdash; Talent Without Borders.</p>
+                <div class="social-container mt-3">
+                  <div class="social-item-wrapper"><a href="#" class="social-item"><i class="fa-brands fa-facebook"></i></a></div>
+                  <div class="social-item-wrapper"><a href="#" class="social-item"><i class="fa-brands fa-linkedin"></i></a></div>
+                  <div class="social-item-wrapper"><a href="#" class="social-item"><i class="fa-brands fa-instagram"></i></a></div>
+                  <div class="social-item-wrapper"><a href="#" class="social-item"><i class="fa-brands fa-youtube"></i></a></div>
+                </div>
+              </div>
+            </div>
+            <div class="col col-lg-2">
+              <div class="footer-quick-links">
+                <h5>Company</h5>
+                <ul class="footer-list">
+                  <li><a href="./about.html">About Us</a></li>
+                  <li><a href="./team.html">Our Team &amp; Vetting</a></li>
+                  <li><a href="./partner.html">Partnership</a></li>
+                  <li><a href="./pricing.html">Pricing</a></li>
+                  <li><a href="./contact.html">Contact Us</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col col-lg-2">
+              <div class="footer-services-container">
+                <h5>Services</h5>
+                <ul class="footer-list">
+                  <li><a href="#services">Medical Billing</a></li>
+                  <li><a href="#services">Customer Support</a></li>
+                  <li><a href="#services">IT Services</a></li>
+                  <li><a href="#services">Digital Marketing</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col col-lg-2">
+              <div class="footer-quick-links">
+                <h5>Resources</h5>
+                <ul class="footer-list">
+                  <li><a href="#">Blog</a></li>
+                  <li><a href="./casestudy.html">Case Studies</a></li>
+                  <li><a href="#">Testimonials</a></li>
+                  <li><a href="#">FAQs</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col col-lg-2">
+              <div class="footer-contact-container">
+                <h5>Contact Info</h5>
+                <ul class="contact-list">
+                  <li>hello@rekrutify.com</li>
+                  <li>+1 (800) 555-0199</li>
+                  <li>Montclair, VA 22025, USA</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-content-spacer"></div>
+        </div>
+        <div class="copyright-container">
+          <span class="copyright">&copy; 2026 Rekrutify LLC. All Rights Reserved. | Registered in Virginia, USA.</span>
+          <div class="d-flex flex-row gspace-2">
+            <a class="legal-link" href="#">Terms of Service</a>
+            <a class="legal-link" href="#">Privacy Policy</a>
+            <a class="legal-link" href="#">Security</a>
+          </div>
+        </div>
+        <div class="footer-spacer"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/js/main.js"></script>
+</body>
+</html>

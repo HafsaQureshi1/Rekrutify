@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Rekrutify - Talent Without Borders</title>
+        <link rel="icon" href="./assets/images/favicon.ico">   
+  <script type="module" crossorigin src="./assets/js/index-DkXt8mT5.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/js/vendor-gH-7aFTg.js">
+  <link rel="modulepreload" crossorigin href="./assets/js/router-Glp8g9ss.js">
+  <link rel="modulepreload" crossorigin href="./assets/js/ui-BYV_jtzB.js">
+  <link rel="stylesheet" crossorigin href="./assets/css/index-CUYAFQt4.css">
+</head>
+
+<body>
+    <div id="root"></div>
+</body>

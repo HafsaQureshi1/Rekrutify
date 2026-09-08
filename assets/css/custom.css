@@ -1,0 +1,90 @@
+/* ===========================================================
+   Rekrutify static clone — replacements for the React runtime
+   (Swiper JS, tsParticles, AOS-style reveals) with plain CSS.
+   Loaded AFTER style.css so it can override.
+   =========================================================== */
+
+/* ---------- Scroll reveal ----------
+   Content is visible by default and only hidden once main.js has confirmed
+   it is running (it stamps .js on <html>). If the script never runs — or
+   dies early, which is easy to do on a file:// page — the page still shows
+   everything instead of leaving half the sections at opacity 0. */
+.js .reveal { opacity: 0; }
+.reveal.is-visible { opacity: 1; animation-duration: 1.25s; animation-fill-mode: both; }
+.reveal.is-visible[data-anim="fadeInUp"]    { animation-name: rkFadeInUp; }
+.reveal.is-visible[data-anim="fadeInLeft"]  { animation-name: rkFadeInLeft; }
+.reveal.is-visible[data-anim="fadeInRight"] { animation-name: rkFadeInRight; }
+
+@keyframes rkFadeInUp    { from { opacity: 0; transform: translate3d(0, 60px, 0); } to { opacity: 1; transform: none; } }
+@keyframes rkFadeInLeft  { from { opacity: 0; transform: translate3d(-60px, 0, 0); } to { opacity: 1; transform: none; } }
+@keyframes rkFadeInRight { from { opacity: 0; transform: translate3d(60px, 0, 0); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal.is-visible { opacity: 1; animation: none; }
+}
+.partner-section {
+    position: relative;
+    background:
+        radial-gradient(
+            ellipse 45% 35% at 50% 48%,
+            rgba(0, 130, 90, 0.13) 0%,
+            rgba(0, 100, 70, 0.06) 35%,
+            transparent 75%
+        ),
+        #000;
+}
+
+/* ---------- Partner logo marquee (replaces Swiper autoplay loop) ---------- */
+.swiperPartner { overflow: hidden; }
+.swiperPartner .swiper-wrapper.marquee {
+  display: flex;
+  flex-wrap: nowrap;
+  width: max-content;
+  transform: none;
+  animation: rkMarquee 40s linear infinite;
+}
+.swiperPartner .swiper-wrapper.marquee:hover { animation-play-state: paused; }
+/* Matches the widths Swiper assigned on the live site: 220.83px + 20px gap. */
+.swiperPartner .swiper-slide { flex: 0 0 auto; width: 220.83px; margin-right: 20px; }
+@keyframes rkMarquee { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+
+/* ---------- Testimonial slider (replaces Swiper) ---------- */
+.swiperTestimonial { overflow: hidden; }
+.swiperTestimonial .swiper-wrapper {
+  display: flex;
+  transition: transform .6s cubic-bezier(.4, 0, .2, 1);
+}
+/* 3 per view with a 50px gap — the values Swiper used on the live site. */
+.swiperTestimonial .swiper-slide {
+  flex: 0 0 auto;
+  width: calc((100% - 100px) / 3);
+  margin-right: 50px;
+  box-sizing: border-box;
+  height: auto;
+}
+.swiperTestimonial .swiper-slide > .card { height: 100%; }
+@media screen and (max-width: 991px) {
+  .swiperTestimonial .swiper-slide { width: calc((100% - 50px) / 2); }
+}
+@media screen and (max-width: 767px) {
+  .swiperTestimonial .swiper-slide { width: 100%; margin-right: 0; }
+}
+
+
+/* ---------- Hero video background ----------
+   #banner-video-background is already positioned by style.css; only the
+   dark scrim (drawn by the tsParticles canvas layer on the live site)
+   is recreated here so the hero copy keeps its contrast. */
+#banner-video-background { border: 0; }
+.banner-video-container:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(180deg, rgba(4, 4, 4, .72) 0%, rgba(4, 4, 4, .45) 45%, var(--secondary) 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+.banner-video-container > .hero-container { z-index: 1; }
+
+/* ---------- Light mode logo/img handled in JS; icon state ---------- */
+#themeSwitch { cursor: pointer; }
