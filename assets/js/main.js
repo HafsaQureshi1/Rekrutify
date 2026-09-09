@@ -220,4 +220,116 @@
       window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' });
     });
   });
+
+  /* ---------- Contact form (contact.html) ----------
+     The live site posts nowhere: it validates the email client-side, shows a
+     banner for 3 seconds, then resets. No-ops on pages without the form. */
+  var contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    var okAlert = document.getElementById('form-success-message');
+    var badAlert = document.getElementById('form-error-message');
+    var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    var resetTimer;
+
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var emailField = contactForm.querySelector('#email');
+      clearTimeout(resetTimer);
+
+      if (!emailField || !emailPattern.test(emailField.value)) {
+        if (badAlert) badAlert.classList.remove('hidden');
+        if (okAlert) okAlert.classList.add('hidden');
+        resetTimer = setTimeout(function () {
+          if (badAlert) badAlert.classList.add('hidden');
+        }, 3000);
+        return;
+      }
+
+      if (okAlert) okAlert.classList.remove('hidden');
+      if (badAlert) badAlert.classList.add('hidden');
+      contactForm.reset();
+      resetTimer = setTimeout(function () {
+        if (okAlert) okAlert.classList.add('hidden');
+      }, 3000);
+    });
+  }
+
+  /* ---------- FAQ accordion (replaces Bootstrap's Collapse plugin) ----------
+     style.css already ships Bootstrap's accordion rules, including the
+     `.collapsing { height: 0; transition: height .35s ease }` step and the
+     +/- icon swap driven by `.accordion-button.collapsed`. This reproduces
+     the plugin's show/hide sequence so those rules fire unchanged, and
+     honours `data-bs-parent` so opening one panel closes its siblings. */
+  var collapseToggles = document.querySelectorAll('[data-bs-toggle="collapse"][data-bs-target]');
+
+  if (collapseToggles.length) {
+    var setButton = function (panel, expanded) {
+      var btn = document.querySelector('[data-bs-target="#' + panel.id + '"]');
+      if (!btn) return;
+      btn.classList.toggle('collapsed', !expanded);
+      btn.setAttribute('aria-expanded', String(expanded));
+    };
+
+    var show = function (panel) {
+      if (panel.classList.contains('collapsing') || panel.classList.contains('show')) return;
+      panel.classList.remove('collapse');
+      panel.classList.add('collapsing');
+      panel.style.height = '0px';
+      setButton(panel, true);
+      // Force a reflow so the height transition has a start value.
+      void panel.offsetHeight;
+      panel.style.height = panel.scrollHeight + 'px';
+
+      var done = function () {
+        panel.removeEventListener('transitionend', done);
+        panel.classList.remove('collapsing');
+        panel.classList.add('collapse', 'show');
+        panel.style.height = '';
+      };
+      panel.addEventListener('transitionend', done);
+    };
+
+    var hide = function (panel) {
+      if (panel.classList.contains('collapsing') || !panel.classList.contains('show')) return;
+      panel.style.height = panel.getBoundingClientRect().height + 'px';
+      void panel.offsetHeight;
+      panel.classList.remove('collapse', 'show');
+      panel.classList.add('collapsing');
+      panel.style.height = '0px';
+      setButton(panel, false);
+
+      var done = function () {
+        panel.removeEventListener('transitionend', done);
+        panel.classList.remove('collapsing');
+        panel.classList.add('collapse');
+        panel.style.height = '';
+      };
+      panel.addEventListener('transitionend', done);
+    };
+
+    collapseToggles.forEach(function (toggle) {
+      toggle.addEventListener('click', function (e) {
+        e.preventDefault();
+        var panel = document.querySelector(toggle.getAttribute('data-bs-target'));
+        if (!panel) return;
+
+        if (panel.classList.contains('show')) {
+          hide(panel);
+          return;
+        }
+
+        // data-bs-parent makes the group exclusive, as Bootstrap does.
+        var parentSel = panel.getAttribute('data-bs-parent');
+        if (parentSel) {
+          var parent = document.querySelector(parentSel);
+          if (parent) {
+            parent.querySelectorAll('.collapse.show').forEach(function (open) {
+              if (open !== panel && open.getAttribute('data-bs-parent') === parentSel) hide(open);
+            });
+          }
+        }
+        show(panel);
+      });
+    });
+  }
 })();

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog - Rekrutify - Talent Without Borders</title>
+<meta name="description" content="Our Blog - Rekrutify. Latest insights and industry trends on staff augmentation, offshore hiring, remote teams and global talent.">
+<link rel="icon" href="./assets/images/favicon.ico">
+<link rel="stylesheet" href="./assets/css/style.css">
+<link rel="stylesheet" href="./assets/css/fonts.css">
+<link rel="stylesheet" href="./assets/css/custom.css">
+<script>
+/* Hide the scroll-reveal elements only while JS is actually working, so the
+   page can never get stuck with half its sections at opacity 0. The watchdog
+   un-hides everything if main.js fails to load or throws before it signals
+   ready — a failure that is much easier to hit on a file:// page. */
+(function () {
+  var el = document.documentElement;
+  el.className += ' js';
+  setTimeout(function () {
+    if (!window.__rekrutifyReady) el.className = el.className.replace(/\bjs\b/, '');
+  }, 2000);
+  window.addEventListener('error', function (e) {
+    if (e.target && e.target.tagName === 'SCRIPT') el.className = el.className.replace(/\bjs\b/, '');
+  }, true);
+})();
+</script>
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<div class="navbar-wrapper">
+  <nav class="navbar navbar-expand-lg">
+    <div class="navbar-container">
+      <div class="logo-container">
+        <a class="navbar-brand active" href="./index.html">
+          <div class="site-logo">
+            <img alt="Rekrutify" class="img-fluid rekrutify-logo" src="./assets/images/rekrutify_dark.png" style="max-height: 40px;">
+          </div>
+        </a>
+      </div>
+      <button class="navbar-toggler nav-btn" type="button" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link " href="./index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="./about.html">About</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" aria-expanded="false">Services <i class="fa-solid fa-angle-down accent-color"></i></a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="./serviceoverview.html">Services Overview</a></li>
+              <li><a class="dropdown-item" href="./medical-billing.html">Medical Billing</a></li>
+              <li><a class="dropdown-item" href="#services">Customer Support</a></li>
+              <li><a class="dropdown-item" href="#services">IT Services</a></li>
+              <li><a class="dropdown-item" href="#services">Digital Marketing</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link " href="./casestudy.html">Case Studies</a></li>
+          <li class="nav-item"><a class="nav-link" href="./pricing.html">Pricing</a></li>
+          <li class="nav-item"><a class="nav-link" href="./contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="navbar-action-container">
+        <div class="navbar-action-button">
+          <button id="themeSwitch"><i id="themeIcon" class="fas fa-moon"></i></button>
+        </div>
+        <a class="btn btn-primary rounded-pill d-flex align-items-center justify-content-center" href="#contact"
+           style="padding: 12px 24px; background-color: var(--accent-color); color: var(--accent-color-2); font-weight: 600; text-decoration: none;">Start Free Trial</a>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<!-- ============ MOBILE SIDEBAR ============ -->
+<div>
+  <div class="sidebar-overlay"></div>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo mb-0">
+        <img alt="Rekrutify" class="img-fluid rekrutify-logo" src="./assets/images/rekrutify_dark.png" style="max-height: 40px;">
+      </div>
+      <button class="close-btn"><span>X</span></button>
+    </div>
+    <ul class="menu">
+      <li><a href="./index.html">Home</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li class="sidebar-dropdown">
+        <div class="dropdown-header">
+          <a href="#services">Services</a>
+          <button class="sidebar-dropdown-btn"><i class="fa-solid fa-angle-down"></i></button>
+        </div>
+        <ul class="sidebar-dropdown-menu">
+          <li><a href="./serviceoverview.html">Services Overview</a></li>
+          <li><a href="./medical-billing.html">Medical Billing</a></li>
+          <li><a href="#services">Customer Support</a></li>
+          <li><a href="#services">IT Services</a></li>
+          <li><a href="#services">Digital Marketing</a></li>
+        </ul>
+      </li>
+      <li class="below-dropdown"><a href="./casestudy.html">Case Studies</a></li>
+      <li class="below-dropdown"><a href="./pricing.html">Pricing</a></li>
+      <li class="below-dropdown"><a href="./contact.html">Contact Us</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============ PAGE BANNER ============ -->
+<div class="section-banner">
+  <div class="banner-layout-wrapper banner-inner">
+    <div class="banner-layout">
+      <div class="d-flex flex-column text-center align-items-center gspace-2">
+        <h2 class="title-heading reveal" data-anim="fadeInUp">Our Blog</h2>
+        <nav class="breadcrumb">
+          <a href="./index.html" class="gspace-2">Home</a><span class="separator-link">/</span><p class="current-page">Blog</p>
+        </nav>
+      </div>
+      <div class="spacer"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ BLOG GRID ============ -->
+<div class="section">
+  <div class="hero-container">
+    <div class="d-flex flex-column gspace-5">
+
+      <div class="row row-cols-lg-2 row-cols-1 grid-spacer-5 m-0">
+        <div class="col col-lg-8 ps-0 pe-0">
+          <div class="d-flex flex-column gspace-2 reveal" data-anim="fadeInUp">
+            <div class="sub-heading"><i class="fa-regular fa-circle-dot"></i><span>Insights &amp; Trends</span></div>
+            <h2 class="title-heading">Latest Insights &amp; Industry Trends</h2>
+          </div>
+        </div>
+        <div class="col col-lg-4 ps-0 pe-0">
+          <div class="d-flex flex-column gspace-2 justify-content-end h-100 reveal" data-anim="fadeInUp">
+            <p>Explore our latest blog articles covering industry trends, expert insights, and actionable strategies to elevate your digital marketing game.</p>
+            <div class="link-wrapper">
+              <a href="./blog.html">View All Articles</a><i class="fa-solid fa-circle-arrow-right"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row row-cols-md-2 row-cols-lg-3 row-cols-1 grid-spacer-3">
+
+        <div class="col">
+          <div>
+            <div class="card card-blog card-hover-lift h-100 reveal" data-anim="fadeInUp" style="cursor: pointer;">
+              <div class="blog-image"><img alt="Blog" src="./assets/images/blog-staff-augmentation.png"></div>
+              <div class="card-body">
+                <div class="d-flex flex-row gspace-2">
+                  <div class="d-flex flex-row gspace-1 align-items-center"><i class="fa-solid fa-calendar accent-color"></i><span class="meta-data">April 14, 2026</span></div>
+                  <div class="d-flex flex-row gspace-1 align-items-center"><i class="fa-solid fa-folder accent-color"></i><span class="meta-data">Remote Work</span></div>
+                </div>
+                <a class="blog-link" href="#">The Ultimate Guide to Staff Augmentation in 2026</a>
+                <p>Discover the best practices for scaling your startup using remote teams and integrated staff augmentation strategies.</p>
+                <a class="read-more" href="#">Read More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div>
+            <div class="card card-blog card-hover-lift h-100 reveal" data-anim="fadeInUp" style="cursor: pointer;">
+              <div class="blog-image"><img alt="Blog" src="./assets/images/blog-omnichannel-support.png"></div>
+              <div class="card-body">
+                <div class="d-flex flex-row gspace-2">
+                  <div class="d-flex flex-row gspace-1 align-items-center"><i class="fa-solid fa-calendar accent-color"></i><span class="meta-data">April 16, 2026</span></div>
+                  <div class="d-flex flex-row gspace-1 align-items-center"><i class="fa-solid fa-folder accent-color"></i><span class="meta-data">Customer Support</span></div>
+                </div>
+                <a class="blog-link" href="#">How to Deliver 24/7 Omnichannel Customer Support on a Budget</a>
+                <p>Build enterprise-grade omnichannel support across chat, email, phone, and social — at a fraction of US costs.</p>
+                <a class="read-more" href="#">Read More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div>
+            <div class="card card-blog card-hover-lift h-100 reveal" data-anim="fadeInUp" style="cursor: pointer;">
+              <div class="blog-image"><img alt="Blog" src="./assets/images/blog-marketing-offshore.png"></div>
+              <div class="card-body">
+                <div class="d-flex flex-row gspace-2">
+                  <div class="d-flex flex-row gspace-1 align-items-center"><i class="fa-solid fa-calendar accent-color"></i><span class="meta-data">April 10, 2026</span></div>
+                  <div class="d-flex flex-row gspace-1 align-items-center"><i class="fa-solid fa-folder accent-color"></i><span class="meta-data">Digital Marketing</span></div>
+                </div>
+                <a class="blog-link" href="#">In-House vs. Offshore Digital Marketing Teams: What Scales Faster?</a>
+                <p>Compare costs, output quality, and scalability of in-house versus offshore marketing teams for growth-stage companies.</p>
+                <a class="read-more" href="#">Read More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div>
+            <div class="card card-blog card-hover-lift h-100 reveal" data-anim="fadeInUp" style="cursor: pointer;">
+              <div class="blog-image"><img alt="Blog" src="./assets/images/blog-hidden-costs.png"></div>
+              <div class="card-body">
+                <div class="d-flex flex-row gspace-2">
+                  <div class="d-flex flex-row gspace-1 align-items-center"><i class="fa-solid fa-calendar accent-color"></i><span class="meta-data">April 8, 2026</span></div>
+                  <div class="d-flex flex-row gspace-1 align-items-center"><i class="fa-solid fa-folder accent-color"></i><span class="meta-data">Cost Analysis</span></div>
+                </div>
+                <a class="blog-link" href="#">The Hidden Costs of US Recruitment (And How Hourly Staffing Fixes It)</a>
+                <p>Uncover the true cost of hiring in the US — from recruitment fees and benefits to turnover — and how hourly staffing eliminates them.</p>
+                <a class="read-more" href="#">Read More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div>
+            <div class="card card-blog card-hover-lift h-100 reveal" data-anim="fadeInUp" style="cursor: pointer;">
+              <div class="blog-image"><img alt="Blog" src="./assets/images/blog-data-security.png"></div>
+              <div class="card-body">
+                <div class="d-flex flex-row gspace-2">
+                  <div class="d-flex flex-row gspace-1 align-items-center"><i class="fa-solid fa-calendar accent-color"></i><span class="meta-data">March 28, 2026</span></div>
+                  <div class="d-flex flex-row gspace-1 align-items-center"><i class="fa-solid fa-folder accent-color"></i><span class="meta-data">Security &amp; Compliance</span></div>
+                </div>
+                <a class="blog-link" href="#">Ensuring Data Security &amp; Compliance When Scaling Global Teams</a>
+                <p>A comprehensive guide to HIPAA, SOC 2, and GDPR compliance when building distributed global teams with offshore talent.</p>
+                <a class="read-more" href="#">Read More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div>
+            <div class="card card-blog card-hover-lift h-100 reveal" data-anim="fadeInUp" style="cursor: pointer;">
+              <div class="blog-image"><img alt="Blog" src="./assets/images/blog-tech-talent-pakistan.png"></div>
+              <div class="card-body">
+                <div class="d-flex flex-row gspace-2">
+                  <div class="d-flex flex-row gspace-1 align-items-center"><i class="fa-solid fa-calendar accent-color"></i><span class="meta-data">March 22, 2026</span></div>
+                  <div class="d-flex flex-row gspace-1 align-items-center"><i class="fa-solid fa-folder accent-color"></i><span class="meta-data">IT Staffing</span></div>
+                </div>
+                <a class="blog-link" href="#">Why US Companies are Hiring Tech Talent in Pakistan</a>
+                <p>Explore the rapid growth of Pakistan's IT sector and why leading US startups are sourcing developers seamlessly across borders.</p>
+                <a class="read-more" href="#">Read More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div>
+            <div class="card card-blog card-hover-lift h-100 reveal" data-anim="fadeInUp" style="cursor: pointer;">
+              <div class="blog-image"><img alt="Blog" src="./assets/images/blog-vetting-talent.png"></div>
+              <div class="card-body">
+                <div class="d-flex flex-row gspace-2">
+                  <div class="d-flex flex-row gspace-1 align-items-center"><i class="fa-solid fa-calendar accent-color"></i><span class="meta-data">March 15, 2026</span></div>
+                  <div class="d-flex flex-row gspace-1 align-items-center"><i class="fa-solid fa-folder accent-color"></i><span class="meta-data">Talent Acquisition</span></div>
+                </div>
+                <a class="blog-link" href="#">How to Vet the Top 1% of Global Talent (Without the Headache)</a>
+                <p>Learn the 5-stage vetting pipeline that filters 97% of candidates to deliver only elite professionals to your team.</p>
+                <a class="read-more" href="#">Read More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div>
+            <div class="card card-blog card-hover-lift h-100 reveal" data-anim="fadeInUp" style="cursor: pointer;">
+              <div class="blog-image"><img alt="Blog" src="./assets/images/blog-remote-team.png"></div>
+              <div class="card-body">
+                <div class="d-flex flex-row gspace-2">
+                  <div class="d-flex flex-row gspace-1 align-items-center"><i class="fa-solid fa-calendar accent-color"></i><span class="meta-data">February 10, 2026</span></div>
+                  <div class="d-flex flex-row gspace-1 align-items-center"><i class="fa-solid fa-folder accent-color"></i><span class="meta-data">B2B Growth</span></div>
+                </div>
+                <a class="blog-link" href="#">How to Manage a Remote Team Across Time Zones</a>
+                <p>Learn effective communication and project management strategies for integrating global talent into your existing operational hours.</p>
+                <a class="read-more" href="#">Read More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div>
+            <div class="card card-blog card-hover-lift h-100 reveal" data-anim="fadeInUp" style="cursor: pointer;">
+              <div class="blog-image"><img alt="Blog" src="./assets/images/blog-medical-billing.png"></div>
+              <div class="card-body">
+                <div class="d-flex flex-row gspace-2">
+                  <div class="d-flex flex-row gspace-1 align-items-center"><i class="fa-solid fa-calendar accent-color"></i><span class="meta-data">January 5, 2026</span></div>
+                  <div class="d-flex flex-row gspace-1 align-items-center"><i class="fa-solid fa-folder accent-color"></i><span class="meta-data">Healthcare</span></div>
+                </div>
+                <a class="blog-link" href="#">Reducing Claim Rejections with Dedicated Medical Billers</a>
+                <p>Discover how trained, dedicated medical billing specialists can dramatically reduce your claim rejection rates and boost revenue.</p>
+                <a class="read-more" href="#">Read More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<div class="section-footer">
+  <div class="bg-footer-wrapper">
+    <div class="bg-footer">
+      <div class="hero-container position-relative z-2">
+        <div class="d-flex flex-column gspace-2">
+          <div class="row row-cols-lg-5 row-cols-md-2 row-cols-1 grid-spacer-5">
+            <div class="col col-lg-4">
+              <div class="footer-logo-container">
+                <div class="logo-container-footer mb-3">
+                  <img alt="Rekrutify" class="img-fluid rekrutify-logo" src="./assets/images/rekrutify_dark.png" style="max-height: 40px;">
+                </div>
+                <p>One simple hourly rate. Zero recruitment hassle. A team that feels like your own. Rekrutify &mdash; Talent Without Borders.</p>
+                <div class="social-container mt-3">
+                  <div class="social-item-wrapper"><a href="#" class="social-item"><i class="fa-brands fa-facebook"></i></a></div>
+                  <div class="social-item-wrapper"><a href="#" class="social-item"><i class="fa-brands fa-linkedin"></i></a></div>
+                  <div class="social-item-wrapper"><a href="#" class="social-item"><i class="fa-brands fa-instagram"></i></a></div>
+                  <div class="social-item-wrapper"><a href="#" class="social-item"><i class="fa-brands fa-youtube"></i></a></div>
+                </div>
+              </div>
+            </div>
+            <div class="col col-lg-2">
+              <div class="footer-quick-links">
+                <h5>Company</h5>
+                <ul class="footer-list">
+                  <li><a href="./about.html">About Us</a></li>
+                  <li><a href="./team.html">Our Team &amp; Vetting</a></li>
+                  <li><a href="./partner.html">Partnership</a></li>
+                  <li><a href="./pricing.html">Pricing</a></li>
+                  <li><a href="./contact.html">Contact Us</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col col-lg-2">
+              <div class="footer-services-container">
+                <h5>Services</h5>
+                <ul class="footer-list">
+                  <li><a href="./medical-billing.html">Medical Billing</a></li>
+                  <li><a href="#services">Customer Support</a></li>
+                  <li><a href="#services">IT Services</a></li>
+                  <li><a href="#services">Digital Marketing</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col col-lg-2">
+              <div class="footer-quick-links">
+                <h5>Resources</h5>
+                <ul class="footer-list">
+                  <li><a href="./blog.html">Blog</a></li>
+                  <li><a href="#case">Case Studies</a></li>
+                  <li><a href="#">Testimonials</a></li>
+                  <li><a href="#">FAQs</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col col-lg-2">
+              <div class="footer-contact-container">
+                <h5>Contact Info</h5>
+                <ul class="contact-list">
+                  <li>hello@rekrutify.com</li>
+                  <li>+1 (800) 555-0199</li>
+                  <li>Montclair, VA 22025, USA</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-content-spacer"></div>
+        </div>
+        <div class="copyright-container">
+          <span class="copyright">&copy; 2026 Rekrutify LLC. All Rights Reserved. | Registered in Virginia, USA.</span>
+          <div class="d-flex flex-row gspace-2">
+            <a class="legal-link" href="#">Terms of Service</a>
+            <a class="legal-link" href="#">Privacy Policy</a>
+            <a class="legal-link" href="#">Security</a>
+          </div>
+        </div>
+        <div class="footer-spacer"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/js/main.js"></script>
+</body>
+</html>
