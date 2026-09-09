@@ -1,0 +1,38 @@
+# Rekrutify — clean blog URLs.
+#
+#   /blog                         -> blog.html
+#   /blog/staff-augmentation-2026 -> blog/staff-augmentation-2026.html
+#
+# These map onto the GENERATED static files, so the public blog never touches
+# PHP. It is only a nicer address for pages that already work without it — if
+# mod_rewrite is missing, or you open the files directly, blog.html and
+# blog/<slug>.html still work exactly the same.
+
+# "blog" is a real folder (it holds the generated articles), so Apache would
+# normally redirect /blog to /blog/ and look for a directory index there before
+# the rewrite below ever runs. Turning that redirect off lets /blog resolve to
+# the listing page. Safe here because Options -Indexes forbids directory
+# listings anyway.
+<IfModule mod_dir.c>
+  DirectorySlash Off
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Deliberately no RewriteBase: without it the substitutions below resolve
+  # relative to this file's own directory, so the site works both at a domain
+  # root and in a subfolder such as htdocs\rekrutify.
+
+  # /blog -> the generated listing. This comes first because "blog" is also a
+  # real directory, which would otherwise stop the rewrite below.
+  RewriteRule ^blog/?$ blog.html [L]
+
+  # /blog/<slug> -> the generated article, unless that exact file exists.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^blog/([A-Za-z0-9_-]+)/?$ blog/$1.html [L]
+</IfModule>
+
+# The site is plain files; make sure .html is served, not listed.
+DirectoryIndex index.html index.php
+Options -Indexes
