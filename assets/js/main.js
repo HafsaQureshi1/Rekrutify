@@ -170,13 +170,21 @@
   var themeSwitch = document.getElementById('themeSwitch');
   var themeIcon = document.getElementById('themeIcon');
 
+  /* Work the images folder out from the stylesheet that is already loaded,
+     rather than hard-coding "./assets/...". The static pages sit at the site
+     root, but the PHP blog also serves /blog/<slug>, where a relative path
+     would resolve one level too deep and blank out the logo. */
+  var ASSET_IMAGES = (function () {
+    var link = document.querySelector('link[rel="stylesheet"][href*="assets/css/style.css"]');
+    var href = link ? link.getAttribute('href') : './assets/css/style.css';
+    return href.replace(/assets\/css\/style\.css.*$/, 'assets/images/');
+  })();
+
   function applyTheme(light) {
     document.body.classList.toggle('lightmode', light);
     if (themeIcon) themeIcon.className = light ? 'fas fa-sun' : 'fas fa-moon';
     document.querySelectorAll('img.rekrutify-logo').forEach(function (img) {
-      img.setAttribute('src', light
-        ? './assets/images/rekrutify_light.png'
-        : './assets/images/rekrutify_dark.png');
+      img.setAttribute('src', ASSET_IMAGES + (light ? 'rekrutify_light.png' : 'rekrutify_dark.png'));
     });
     try {
       if (light) localStorage.setItem('lightmode', 'active');

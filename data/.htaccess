@@ -1,0 +1,7 @@
+# The post JSON files are read by PHP only, not served to browsers.
+Require all denied
+# Apache 2.2 fallback
+<IfModule !mod_authz_core.c>
+  Order allow,deny
+  Deny from all
+</IfModule>
