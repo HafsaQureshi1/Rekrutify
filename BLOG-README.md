@@ -1,25 +1,52 @@
-# Rekrutify blog — static pages, PHP admin
+# Rekrutify — deployment & blog
 
-**The public blog is plain HTML and needs no PHP.** `blog.html` and
-`blog/<slug>.html` are real files on disk, so the blog works on any static host,
-and by opening the files directly. Visitors never touch PHP.
+## Deploying
 
-**PHP is only needed to change content.** When you save a post in the admin
-panel it rewrites those HTML files for you, so the public site is immediately up
-to date — then you can stop PHP again.
+Copy this whole folder onto the server. **There is nothing to edit.** Nothing in
+the project names the folder it lives in, so the same files work unchanged at a
+domain root (`https://rekrutify.com/`) or in a subfolder
+(`http://localhost/rekrutify/`). Both layouts are tested.
 
-```
-blog.html                generated listing        <- what visitors see
-blog/<slug>.html         generated articles       <- what visitors see
-data/posts/<slug>.json   your content             <- the source of truth
-templates/               the markup both use
-includes/                config, data layer, page shell, the builder
-blog.php, post.php       live PHP preview of the same templates (optional)
-admin/                   the panel: login, list, add/edit/delete, rebuild
-tools/build.php          rebuilds the static pages from the command line
-tools/make-password.php  generates a password hash for config.php
-tools/router.php         only for `php -S`; Apache uses .htaccess instead
-```
+Requirements: Apache with `mod_rewrite` (standard everywhere, and already on in
+XAMPP) and PHP 8. Tested on PHP 8.2 and 8.3.
+
+The one thing to do before going live is change the admin password — see
+"Changing the admin password" below.
+
+### What needs what
+
+| Part | Needs |
+| --- | --- |
+| Every marketing page, the blog listing, the articles | Nothing — plain HTML files |
+| Clean URLs (`/blog`, `/blog/<slug>`) and the 404 page | Apache + `mod_rewrite` |
+| Adding or editing a blog post | PHP |
+
+If a host has no `mod_rewrite` the site still works — `blog.html` and
+`blog/<slug>.html` are real files. Set `PRETTY_URLS` to `false` in
+`includes/config.php` so links point straight at them.
+
+On nginx, the `.htaccess` files are ignored: add `location` deny rules for
+`includes/`, `data/` and `tools/`, or `config.php` and the post files become
+readable over the web.
+
+## How it stays location-independent
+
+Four things, so nothing has to be reconfigured per environment:
+
+- `base_url()` in `includes/config.php` works the site's URL prefix out at
+  request time by comparing the project folder with `DOCUMENT_ROOT`. Every
+  PHP-rendered link and asset is built on it.
+- `.htaccess` deliberately sets no `RewriteBase`, so its rules resolve relative
+  to the file's own directory.
+- The 404 page is `404.php`, not static HTML. Apache serves the error page's
+  body at whatever URL was missing, so a 404 at `/blog/a/b/c` would resolve
+  relative asset paths against that deeper path and render completely unstyled.
+  PHP computes the correct paths at request time instead. The rule that routes
+  missing URLs there tests `DOCUMENT_ROOT` + `REQUEST_URI` rather than
+  `REQUEST_FILENAME`, because Apache splits `/about.html/res` into a real file
+  plus path-info, which would otherwise skip the rule.
+- The static pages only ever use `./relative` links, which stay correct because
+  each is served from its own URL.
 
 ## Reading the blog — no PHP required
 
@@ -77,16 +104,6 @@ Link to another article with `./post.php?slug=<slug>`.
 ```
 Why US Companies are Hiring Tech Talent in Pakistan | ./post.php?slug=hiring-tech-talent-pakistan
 ```
-
-## URLs
-
-Articles use `/blog/<slug>`, matching the live site. That comes from the
-`.htaccess` in this folder plus Apache's `mod_rewrite`, which your XAMPP already
-has enabled (`AllowOverride All` is set for `htdocs`).
-
-If you ever move to a host without `mod_rewrite`, set `PRETTY_URLS` to `false`
-in `includes/config.php`. The site then links to `post.php?slug=...` instead and
-keeps working — both forms are always accepted, so old links never break.
 
 ## Changing the admin password
 

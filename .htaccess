@@ -1,12 +1,8 @@
-# Rekrutify — clean blog URLs.
+# Rekrutify — server rules.
 #
-#   /blog                         -> blog.html
-#   /blog/staff-augmentation-2026 -> blog/staff-augmentation-2026.html
-#
-# These map onto the GENERATED static files, so the public blog never touches
-# PHP. It is only a nicer address for pages that already work without it — if
-# mod_rewrite is missing, or you open the files directly, blog.html and
-# blog/<slug>.html still work exactly the same.
+# Nothing in this file names the folder the site is installed in, so the same
+# project works unchanged at a domain root (https://rekrutify.com/) or in a
+# subfolder (http://localhost/rekrutify/). Deploy by copying the folder.
 
 # "blog" is a real folder (it holds the generated articles), so Apache would
 # normally redirect /blog to /blog/ and look for a directory index there before
@@ -20,18 +16,40 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
-  # Deliberately no RewriteBase: without it the substitutions below resolve
-  # relative to this file's own directory, so the site works both at a domain
-  # root and in a subfolder such as htdocs\rekrutify.
+  # Deliberately no RewriteBase: without it every substitution below resolves
+  # relative to this file's own directory, which is what makes the site
+  # location-independent.
 
-  # /blog -> the generated listing. This comes first because "blog" is also a
-  # real directory, which would otherwise stop the rewrite below.
+  # ---- Clean blog URLs -------------------------------------------------
+  #   /blog                         -> blog.html
+  #   /blog/staff-augmentation-2026 -> blog/staff-augmentation-2026.html
+  # These map onto the GENERATED static files, so the public blog never runs PHP.
+
+  # /blog -> the generated listing. First, because "blog" is also a real folder.
   RewriteRule ^blog/?$ blog.html [L]
 
   # /blog/<slug> -> the generated article, unless that exact file exists.
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteRule ^blog/([A-Za-z0-9_-]+)/?$ blog/$1.html [L]
+
+  # ---- 404 -------------------------------------------------------------
+  # Anything that is not a real file or folder renders the 404 page, which sets
+  # the 404 status itself. Done as a rewrite rather than ErrorDocument because
+  # ErrorDocument needs a path from the server root, which would hard-code the
+  # install location. This rule is relative, so it does not.
+  # Tested against DOCUMENT_ROOT + REQUEST_URI rather than REQUEST_FILENAME,
+  # because Apache splits a URL like /about.html/res into the real file
+  # about.html plus path-info "/res" — REQUEST_FILENAME would then point at a
+  # file that exists and this rule would never fire, leaving Apache's own bare
+  # 404 for that URL.
+  RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-f
+  RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-d
+  RewriteRule ^ 404.php [L]
 </IfModule>
+
+# If mod_rewrite is unavailable the site still works; only the clean blog URLs
+# and the custom 404 fall back (blog.html and blog/<slug>.html are real files).
+# In that case also set PRETTY_URLS to false in includes/config.php.
 
 # The site is plain files; make sure .html is served, not listed.
 DirectoryIndex index.html index.php
