@@ -340,4 +340,125 @@
       });
     });
   }
+
+  /* ---------- Design Services: discipline index ----------
+     The rows start OPEN in the HTML so the page reads fine without JavaScript.
+     Here they collapse to just the first one — or to whichever row the URL
+     hash names (e.g. design-services.html#brand-identity) so a discipline can
+     be linked to directly. Several can be open at once, for comparing. */
+  var dsItems = document.querySelectorAll('.ds-item');
+  if (dsItems.length) {
+    var dsSetOpen = function (item, open) {
+      var btn = item.querySelector('.ds-toggle');
+      var panel = item.querySelector('.ds-panel');
+      item.classList.toggle('is-open', open);
+      if (btn) btn.setAttribute('aria-expanded', String(open));
+      // inert takes a closed panel's links out of the tab order and the
+      // accessibility tree immediately. The CSS visibility transition does the
+      // same visually, but it cannot be relied on for that: when the transition
+      // does not run, a collapsed panel stayed focusable at zero height.
+      if (panel) panel.inert = !open;
+    };
+
+    // The row a URL hash names, if any. getElementById rather than
+    // querySelector: ids like "3d-illustration" start with a digit, which is
+    // valid HTML but an invalid CSS selector. decodeURIComponent throws on a
+    // malformed "%" sequence, so a bad hash just means "no target".
+    var dsFromHash = function () {
+      if (location.hash.length < 2) return null;
+      var id;
+      try { id = decodeURIComponent(location.hash.slice(1)); } catch (e) { return null; }
+      var el = document.getElementById(id);
+      return el && el.classList.contains('ds-item') ? el : null;
+    };
+
+    var dsTarget = dsFromHash();
+
+    dsItems.forEach(function (item, i) {
+      dsSetOpen(item, dsTarget ? item === dsTarget : i === 0);
+      var btn = item.querySelector('.ds-toggle');
+      if (btn) {
+        btn.addEventListener('click', function () {
+          dsSetOpen(item, !item.classList.contains('is-open'));
+        });
+      }
+    });
+
+    if (dsTarget) {
+      setTimeout(function () {
+        dsTarget.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      }, 150);
+    }
+
+    // A link to #some-row from elsewhere on the same page changes only the
+    // hash — no reload, so the code above never re-runs. Open that row too.
+    // Other open rows are left alone, so comparing still works.
+    window.addEventListener('hashchange', function () {
+      var target = dsFromHash();
+      if (!target) return;
+      dsSetOpen(target, true);
+      target.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    });
+  }
+
+  /* ---------- Design Services: brief builder summary ----------
+     Echoes the current selection under the Continue button, so it is clear
+     what will be carried into the contact form. */
+  var dsBrief = document.querySelector('.ds-brief-form');
+  var dsSummary = document.getElementById('dsBriefSummary');
+  if (dsBrief && dsSummary) {
+    var DS_HOURS = { '20': 'Part-time', '40': 'Full-time', flexible: 'Hours flexible' };
+    var DS_START = { asap: 'ASAP', month: 'Within a month', exploring: 'Just exploring' };
+
+    var dsRefresh = function () {
+      var picked = [].map.call(dsBrief.querySelectorAll('input[name="discipline"]:checked'), function (el) {
+        return el.value;
+      });
+      var hours = dsBrief.querySelector('input[name="hours"]:checked');
+      var start = dsBrief.querySelector('input[name="start"]:checked');
+      var parts = [];
+      if (picked.length) parts.push(picked.join(' + '));
+      if (hours) parts.push(DS_HOURS[hours.value]);
+      if (start) parts.push(DS_START[start.value]);
+      dsSummary.textContent = parts.join(' · ');
+    };
+
+    dsBrief.addEventListener('change', dsRefresh);
+    dsRefresh();
+  }
+
+  /* ---------- Contact form: pre-fill from a Design Services link ----------
+     The brief builder and the "Hire a … designer" links send their choices
+     as URL parameters. Only known values are accepted, and only empty fields
+     are filled, so nothing the visitor has typed is ever overwritten. */
+  var ctForm = document.getElementById('contactForm');
+  if (ctForm && location.search && 'URLSearchParams' in window) {
+    var q = new URLSearchParams(location.search);
+    var DISCIPLINES = ['UI/UX Design', 'Web Design', 'Brand Identity', 'Graphic Design',
+      'Motion Graphics', '3D & Illustration', 'Product Design', 'Presentation Design'];
+    var HOURS_TEXT = { '20': '20 hours/week', '40': '40 hours/week', flexible: 'Flexible' };
+    var START_TEXT = { asap: 'As soon as possible', month: 'Within a month', exploring: 'Just exploring' };
+
+    var wanted = q.getAll('discipline').filter(function (d) { return DISCIPLINES.indexOf(d) !== -1; });
+    var hoursKey = q.get('hours');
+    var startKey = q.get('start');
+    var isDesign = q.get('service') === 'design' || wanted.length > 0;
+
+    if (isDesign) {
+      var role = document.getElementById('role');
+      if (role && !role.value && role.querySelector('option[value="Design"]')) role.value = 'Design';
+
+      var hoursField = document.getElementById('expected-hours');
+      if (hoursField && !hoursField.value && HOURS_TEXT[hoursKey]) hoursField.value = HOURS_TEXT[hoursKey];
+
+      var msg = document.getElementById('message');
+      if (msg && !msg.value) {
+        var lines = ['I\'d like to hire a designer.'];
+        if (wanted.length) lines.push('Disciplines: ' + wanted.join(', '));
+        if (HOURS_TEXT[hoursKey]) lines.push('Hours: ' + HOURS_TEXT[hoursKey]);
+        if (START_TEXT[startKey]) lines.push('Start: ' + START_TEXT[startKey]);
+        msg.value = lines.join('\n');
+      }
+    }
+  }
 })();

@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Services - Rekrutify - Talent Without Borders</title>
+<meta name="description" content="Hire dedicated remote designers with Rekrutify: UI/UX, web, brand, graphic, motion, 3D, product and presentation design, on one simple hourly rate with a free 2-week trial.">
+<link rel="icon" href="./assets/images/favicon.ico">
+<link rel="stylesheet" href="./assets/css/style.css">
+<link rel="stylesheet" href="./assets/css/fonts.css">
+<link rel="stylesheet" href="./assets/css/custom.css">
+<link rel="stylesheet" href="./assets/css/design.css">
+<script>
+/* Hide the scroll-reveal elements only while JS is actually working, so the
+   page can never get stuck with half its sections at opacity 0. The watchdog
+   un-hides everything if main.js fails to load or throws before it signals
+   ready — a failure that is much easier to hit on a file:// page. */
+(function () {
+  var el = document.documentElement;
+  el.className += ' js';
+  setTimeout(function () {
+    if (!window.__rekrutifyReady) el.className = el.className.replace(/\bjs\b/, '');
+  }, 2000);
+  window.addEventListener('error', function (e) {
+    if (e.target && e.target.tagName === 'SCRIPT') el.className = el.className.replace(/\bjs\b/, '');
+  }, true);
+})();
+/* Design Services motion: switch the pinned, scroll-driven layout on early so
+   the page does not jump when design.js arrives. If design.js has not taken
+   over within 3s (blocked, failed), fall back to the plain static layout. */
+(function () {
+  var el = document.documentElement;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var seen = false;
+  try { seen = sessionStorage.getItem('dsnIntro') === '1'; } catch (e) { /* storage blocked */ }
+  el.className += ' ds-motion ds-intro-on' + (seen ? ' dsn-seen' : '');
+  setTimeout(function () {
+    if (!window.__dsnBoot) el.className = el.className.replace(/\b(ds-motion|ds-intro-on)\b/g, '');
+  }, 3000);
+})();
+</script>
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<div class="navbar-wrapper">
+  <nav class="navbar navbar-expand-lg">
+    <div class="navbar-container">
+      <div class="logo-container">
+        <a class="navbar-brand active" href="./index.html">
+          <div class="site-logo">
+            <img alt="Rekrutify" class="img-fluid rekrutify-logo" src="./assets/images/rekrutify_dark.png" style="max-height: 40px;">
+          </div>
+        </a>
+      </div>
+      <button class="navbar-toggler nav-btn" type="button" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link " href="./index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="./about.html">About</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" role="button" aria-expanded="false">Services <i class="fa-solid fa-angle-down accent-color"></i></a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="./serviceoverview.html">Services Overview</a></li>
+              <li><a class="dropdown-item" href="./medical-billing.html">Medical Billing</a></li>
+              <li><a class="dropdown-item" href="customer-support.html">Customer Support</a></li>
+              <li><a class="dropdown-item" href="it-services.html">IT Services</a></li>
+              <li><a class="dropdown-item" href="digital-marketing.html">Digital Marketing</a></li>
+              <li><a class="dropdown-item active" href="design-services.html">Design Services</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link " href="./casestudy.html">Case Studies</a></li>
+          <li class="nav-item"><a class="nav-link" href="./pricing.html">Pricing</a></li>
+          <li class="nav-item"><a class="nav-link" href="./contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="navbar-action-container">
+        <div class="navbar-action-button">
+          <button id="themeSwitch"><i id="themeIcon" class="fas fa-moon"></i></button>
+        </div>
+        <a class="btn btn-primary rounded-pill d-flex align-items-center justify-content-center" href="contact.html"
+           style="padding: 12px 24px; background-color: var(--accent-color); color: var(--accent-color-2); font-weight: 600; text-decoration: none;">Start Free Trial</a>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<!-- ============ MOBILE SIDEBAR ============ -->
+<div>
+  <div class="sidebar-overlay"></div>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo mb-0">
+        <img alt="Rekrutify" class="img-fluid rekrutify-logo" src="./assets/images/rekrutify_dark.png" style="max-height: 40px;">
+      </div>
+      <button class="close-btn"><span>X</span></button>
+    </div>
+    <ul class="menu">
+      <li><a href="./index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li class="sidebar-dropdown">
+        <div class="dropdown-header">
+          <a href="./serviceoverview.html">Services</a>
+          <button class="sidebar-dropdown-btn"><i class="fa-solid fa-angle-down"></i></button>
+        </div>
+        <ul class="sidebar-dropdown-menu">
+          <li><a href="./serviceoverview.html">Services Overview</a></li>
+          <li><a href="./medical-billing.html">Medical Billing</a></li>
+          <li><a href="customer-support.html">Customer Support</a></li>
+          <li><a href="it-services.html">IT Services</a></li>
+          <li><a href="digital-marketing.html">Digital Marketing</a></li>
+          <li><a href="design-services.html">Design Services</a></li>
+        </ul>
+      </li>
+      <li class="below-dropdown"><a href="./casestudy.html">Case Studies</a></li>
+      <li class="below-dropdown"><a href="./pricing.html">Pricing</a></li>
+      <li class="below-dropdown"><a href="./contact.html">Contact Us</a></li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ================================================================
+     DESIGN SERVICES — modelled on noomoagency.com's scroll sequence.
+     Every section reads as plain content without JavaScript; design.js
+     adds the pinned, scroll-scrubbed motion and the 3D objects on top.
+     ================================================================ -->
+
+<!-- Ambient glow behind the whole page -->
+<div class="dsn-ambient" aria-hidden="true"><span></span><span></span></div>
+
+<!-- Branded intro (motion only, once per visit, skippable) -->
+<div class="dsn-intro" aria-hidden="true">
+  <div class="dsn-intro-inner">
+    <span class="dsn-intro-brand">Rekrutify</span>
+    <span class="dsn-intro-sub">Design Services</span>
+    <span class="dsn-intro-count"><b>0</b>%</span>
+  </div>
+  <span class="dsn-intro-bar"></span>
+</div>
+
+<!-- Cursor follower (fine pointers only) -->
+<div class="dsn-cursor" aria-hidden="true"></div>
+
+<main class="dsn">
+
+  <!-- ============ 1. HERO ============ -->
+  <section class="dsn-hero" data-dsn="pin" aria-labelledby="dsn-hero-title">
+    <div class="dsn-sticky">
+      <canvas class="dsn-canvas" data-stage="hero" aria-hidden="true"></canvas>
+
+      <h1 id="dsn-hero-title" class="dsn-hero-title">
+        <span class="dsn-hl dsn-hl-1"><span>Design</span><span>talent</span></span>
+        <span class="dsn-hl dsn-hl-2"><span>that shapes</span><span>your</span></span>
+        <span class="dsn-hl dsn-hl-3"><span>digital</span><span>world</span></span>
+      </h1>
+
+      <div class="dsn-hero-foot">
+        <nav class="dsn-crumb" aria-label="Breadcrumb">
+          <a href="./index.html">Home</a><span aria-hidden="true">/</span><a href="./serviceoverview.html">Services</a><span aria-hidden="true">/</span><span aria-current="page">Design</span>
+        </nav>
+        <div class="dsn-hero-intro">
+          <p>Dedicated remote designers for UI/UX, brand, motion and 3D — on one simple hourly rate, with a free 2-week trial.</p>
+          <a class="dsn-btn" href="./contact.html?service=design">Hire a designer <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <span class="dsn-scroll-cue" aria-hidden="true">Scroll</span>
+    </div>
+  </section>
+
+  <!-- ============ 2. MANIFESTO ============ -->
+  <section class="dsn-manifesto" aria-label="What we do">
+    <div class="dsn-wrap">
+      <p class="dsn-big dsn-read" data-dsn="read">
+        At Rekrutify, we place dedicated designers inside growing teams — where craft and business goals become one.
+      </p>
+      <p class="dsn-mid dsn-read" data-dsn="read">
+        From product interfaces to brand systems, motion and 3D, we let the work decide the designer — not the other way around.
+      </p>
+      <p class="dsn-lede">We match US businesses with vetted, English-proficient designers who work inside your tools, on your schedule, as part of your team.</p>
+
+      <div class="dsn-cols">
+        <div class="dsn-col">
+          <span class="dsn-pill">Disciplines</span>
+          <ul class="dsn-list">
+            <li><a href="#ui-ux">UI/UX Design</a></li>
+            <li><a href="#web-design">Web Design</a></li>
+            <li><a href="#brand-identity">Brand Identity</a></li>
+            <li><a href="#graphic-design">Graphic Design</a></li>
+            <li><a href="#motion-graphics">Motion Graphics</a></li>
+            <li><a href="#3d-illustration">3D &amp; Illustration</a></li>
+            <li><a href="#product-design">Product Design</a></li>
+            <li><a href="#presentation-design">Presentation Design</a></li>
+          </ul>
+        </div>
+        <div class="dsn-col">
+          <span class="dsn-pill">Tools</span>
+          <ul class="dsn-list">
+            <li>Figma</li><li>FigJam</li><li>Adobe Illustrator</li><li>Photoshop</li><li>After Effects</li>
+            <li>Premiere Pro</li><li>Blender</li><li>Cinema 4D</li><li>Webflow</li><li>Framer</li>
+          </ul>
+        </div>
+        <div class="dsn-col">
+          <span class="dsn-pill">Built for</span>
+          <ul class="dsn-list">
+            <li>Startups</li><li>SaaS products</li><li>E-commerce brands</li>
+            <li>Healthcare practices</li><li>Agencies</li><li>Marketing teams</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. PINNED SHOWCASE ============ -->
+  <section class="dsn-show" data-dsn="show" aria-label="Design disciplines">
+    <div class="dsn-sticky">
+      <canvas class="dsn-canvas" data-stage="show" aria-hidden="true"></canvas>
+      <div class="dsn-show-count" aria-hidden="true"><b>01</b> / 05</div>
+
+      <article class="dsn-slide" data-slide="0">
+        <h2 class="dsn-word">Interfaces</h2>
+        <div class="dsn-meta-l"><span class="dsn-pill">UI/UX</span><span>Web / Mobile / SaaS</span></div>
+        <div class="dsn-meta-r">
+          <h3>UI/UX &amp; Product Design</h3>
+          <p>Designers who turn research and product goals into clear, usable interfaces — wireframes, prototypes and full design systems, built inside your Figma.</p>
+        </div>
+        <a class="dsn-btn dsn-btn-dark" href="./contact.html?service=design&amp;discipline=UI%2FUX%20Design">Hire a UI/UX designer <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+      </article>
+
+      <article class="dsn-slide" data-slide="1">
+        <h2 class="dsn-word">Identity</h2>
+        <div class="dsn-meta-l"><span class="dsn-pill">Brand</span><span>Logo / Systems / Guidelines</span></div>
+        <div class="dsn-meta-r">
+          <h3>Brand Identity</h3>
+          <p>Designers who give your business a consistent, recognizable look — logos, colour and type systems, and the guidelines that keep it all together.</p>
+        </div>
+        <a class="dsn-btn dsn-btn-dark" href="./contact.html?service=design&amp;discipline=Brand%20Identity">Hire a brand designer <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+      </article>
+
+      <article class="dsn-slide" data-slide="2">
+        <h2 class="dsn-word">Motion</h2>
+        <div class="dsn-meta-l"><span class="dsn-pill">Motion</span><span>Animation / Video / UI motion</span></div>
+        <div class="dsn-meta-r">
+          <h3>Motion Graphics</h3>
+          <p>Designers who bring brands and products to life with movement — explainers, social video, logo and interface animation.</p>
+        </div>
+        <a class="dsn-btn dsn-btn-dark" href="./contact.html?service=design&amp;discipline=Motion%20Graphics">Hire a motion designer <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+      </article>
+
+      <article class="dsn-slide" data-slide="3">
+        <h2 class="dsn-word">Dimension</h2>
+        <div class="dsn-meta-l"><span class="dsn-pill">3D</span><span>Renders / Scenes / Illustration</span></div>
+        <div class="dsn-meta-r">
+          <h3>3D &amp; Illustration</h3>
+          <p>Specialists in custom illustration and 3D — product renders, scenes for web and ads, mascots and icon sets that set you apart from stock imagery.</p>
+        </div>
+        <a class="dsn-btn dsn-btn-dark" href="./contact.html?service=design&amp;discipline=3D%20%26%20Illustration">Hire a 3D artist <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+      </article>
+
+      <article class="dsn-slide" data-slide="4">
+        <h2 class="dsn-word">Conversion</h2>
+        <div class="dsn-meta-l"><span class="dsn-pill">Web</span><span>Landing pages / Sites / Webflow</span></div>
+        <div class="dsn-meta-r">
+          <h3>Web Design</h3>
+          <p>Designers who build websites that look sharp on every screen and are structured to convert — with developer-ready handoff.</p>
+        </div>
+        <a class="dsn-btn dsn-btn-dark" href="./contact.html?service=design&amp;discipline=Web%20Design">Hire a web designer <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+      </article>
+
+      <div class="dsn-show-bar" aria-hidden="true"><span></span></div>
+    </div>
+  </section>
+
+  <!-- ============ 4. PINNED CARD THAT GROWS ============ -->
+  <section class="dsn-card" data-dsn="pin" aria-label="Your new design team">
+    <div class="dsn-sticky">
+      <div class="dsn-card-frame">
+        <img src="./assets/images/working-job-career-casual-showing-SJZWF3N-1024x737.webp" alt="A design team reviewing layouts and moodboards together" loading="lazy">
+        <div class="dsn-card-over">
+          <span class="dsn-card-kicker">Rekrutify / Design</span>
+          <p class="dsn-card-title">Your new<br>design team</p>
+          <p class="dsn-card-note">Vetted designers who join your Slack, work in your Figma and ship on your schedule.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. TEAM + FLOATING CARDS ============ -->
+  <section class="dsn-team" data-dsn="view" aria-labelledby="dsn-team-title">
+    <div class="dsn-wrap dsn-team-grid">
+      <h2 id="dsn-team-title" class="dsn-big dsn-lines">
+        <span><span>Great design</span></span>
+        <span><span>needs the</span></span>
+        <span><span>right team.</span></span>
+      </h2>
+      <p class="dsn-side">Through a short brief and a portfolio-matched shortlist, we find the designer whose past work looks like your next project — then they work as one team with yours.</p>
+    </div>
+    <div class="dsn-float" aria-label="Why teams hire through Rekrutify">
+      <div class="dsn-paper" style="--x: 8%;  --y: 6%;  --r: -8deg; --s: 1.2"><b>Portfolio-matched</b><span>Every shortlisted designer is chosen for work like yours.</span></div>
+      <div class="dsn-paper" style="--x: 58%; --y: 0%;  --r: 6deg;  --s: 0.7"><b>Works in your Figma</b><span>And your Slack, your sprints and your feedback loop.</span></div>
+      <div class="dsn-paper" style="--x: 30%; --y: 44%; --r: 4deg;  --s: 1.5"><b>2-week free trial</b><span>See real work on your own projects before you pay.</span></div>
+      <div class="dsn-paper" style="--x: 72%; --y: 50%; --r: -5deg; --s: 1"><b>The IP is yours</b><span>Everything your designer creates belongs to your company.</span></div>
+    </div>
+  </section>
+
+  <!-- ============ 6. HUMAN TOUCH + DRIFTING WORDS ============ -->
+  <section class="dsn-human" data-dsn="view" aria-labelledby="dsn-human-title">
+    <div class="dsn-wrap dsn-team-grid">
+      <h2 id="dsn-human-title" class="dsn-big dsn-lines">
+        <span><span>Hire —</span></span>
+        <span><span>with a</span></span>
+        <span><span>human touch.</span></span>
+      </h2>
+      <p class="dsn-side">Our designers turn big ideas into clear, accessible work — fluent in the tools your team already uses.</p>
+    </div>
+    <div class="dsn-words" aria-hidden="true">
+      <canvas class="dsn-canvas" data-stage="words"></canvas>
+      <span class="dsn-drift" style="--x: 34%; --dx: -18">Figma</span>
+      <span class="dsn-drift" style="--x: 8%;  --dx: 14">Illustrator</span>
+      <span class="dsn-drift" style="--x: 46%; --dx: -12">Blender</span>
+      <span class="dsn-drift" style="--x: 14%; --dx: 16">After Effects</span>
+      <span class="dsn-drift" style="--x: 40%; --dx: -14">Webflow</span>
+    </div>
+  </section>
+
+  <!-- ============ 7. HAIRLINE DISCIPLINE TABLE ============ -->
+  <section class="dsn-table" id="ds-index" aria-labelledby="ds-index-title">
+    <div class="dsn-wrap">
+      <div class="dsn-table-head">
+        <h2 id="ds-index-title" class="dsn-mid">Eight disciplines. One hiring process.</h2>
+        <p>Open any row to see what that designer does and the tools they use — then hire straight from it.</p>
+      </div>
+
+      <ol class="ds-index">
+        <li class="ds-item reveal" data-anim="fadeInUp" style="--i: 0" id="ui-ux">
+          <h3 class="ds-item-head">
+            <button class="ds-toggle" type="button" id="ds-t-ui-ux" aria-expanded="true" aria-controls="ds-p-ui-ux">
+              <span class="ds-num">01</span>
+              <span class="ds-name">UI/UX Design</span>
+              <span class="ds-tags">Web / Mobile / SaaS</span>
+              <span class="ds-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="ds-panel" id="ds-p-ui-ux" role="region" aria-labelledby="ds-t-ui-ux">
+            <div class="ds-panel-clip"><div class="ds-panel-inner">
+              <p class="ds-lede">Designers who turn user research and product goals into clear interfaces people enjoy using.</p>
+              <div><h4>What they do</h4><ul class="ds-does">
+                <li>Wireframes and user flows</li>
+                <li>High-fidelity UI design</li>
+                <li>Clickable prototypes for testing</li>
+                <li>Design systems and component libraries</li>
+              </ul></div>
+              <div><h4>Tools</h4><ul class="ds-tools">
+                <li>Figma</li><li>FigJam</li><li>Maze</li><li>Adobe XD</li>
+              </ul></div>
+              <div class="ds-panel-cta"><a class="ds-text-link" href="./contact.html?service=design&amp;discipline=UI%2FUX%20Design">Hire a UI/UX designer <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+            </div></div>
+          </div>
+        </li>
+
+        <li class="ds-item reveal" data-anim="fadeInUp" style="--i: 1" id="web-design">
+          <h3 class="ds-item-head">
+            <button class="ds-toggle" type="button" id="ds-t-web" aria-expanded="true" aria-controls="ds-p-web">
+              <span class="ds-num">02</span>
+              <span class="ds-name">Web Design</span>
+              <span class="ds-tags">Landing pages / Marketing sites</span>
+              <span class="ds-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="ds-panel" id="ds-p-web" role="region" aria-labelledby="ds-t-web">
+            <div class="ds-panel-clip"><div class="ds-panel-inner">
+              <p class="ds-lede">Designers who build websites that look sharp on every screen and are structured to convert.</p>
+              <div><h4>What they do</h4><ul class="ds-does">
+                <li>Landing and marketing pages</li>
+                <li>Responsive layouts for every screen size</li>
+                <li>Conversion-focused page structure</li>
+                <li>Developer-ready handoff files</li>
+              </ul></div>
+              <div><h4>Tools</h4><ul class="ds-tools">
+                <li>Figma</li><li>Webflow</li><li>Framer</li><li>WordPress</li>
+              </ul></div>
+              <div class="ds-panel-cta"><a class="ds-text-link" href="./contact.html?service=design&amp;discipline=Web%20Design">Hire a web designer <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+            </div></div>
+          </div>
+        </li>
+
+        <li class="ds-item reveal" data-anim="fadeInUp" style="--i: 2" id="brand-identity">
+          <h3 class="ds-item-head">
+            <button class="ds-toggle" type="button" id="ds-t-brand" aria-expanded="true" aria-controls="ds-p-brand">
+              <span class="ds-num">03</span>
+              <span class="ds-name">Brand Identity</span>
+              <span class="ds-tags">Logo / Visual identity</span>
+              <span class="ds-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="ds-panel" id="ds-p-brand" role="region" aria-labelledby="ds-t-brand">
+            <div class="ds-panel-clip"><div class="ds-panel-inner">
+              <p class="ds-lede">Designers who give your business a consistent, recognizable look across everything it puts out.</p>
+              <div><h4>What they do</h4><ul class="ds-does">
+                <li>Logos and brand marks</li>
+                <li>Colour, typography and visual systems</li>
+                <li>Brand guidelines</li>
+                <li>Stationery and templates</li>
+              </ul></div>
+              <div><h4>Tools</h4><ul class="ds-tools">
+                <li>Illustrator</li><li>Photoshop</li><li>InDesign</li><li>Figma</li>
+              </ul></div>
+              <div class="ds-panel-cta"><a class="ds-text-link" href="./contact.html?service=design&amp;discipline=Brand%20Identity">Hire a brand designer <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+            </div></div>
+          </div>
+        </li>
+
+        <li class="ds-item reveal" data-anim="fadeInUp" style="--i: 3" id="graphic-design">
+          <h3 class="ds-item-head">
+            <button class="ds-toggle" type="button" id="ds-t-graphic" aria-expanded="true" aria-controls="ds-p-graphic">
+              <span class="ds-num">04</span>
+              <span class="ds-name">Graphic Design</span>
+              <span class="ds-tags">Social / Ads / Print</span>
+              <span class="ds-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="ds-panel" id="ds-p-graphic" role="region" aria-labelledby="ds-t-graphic">
+            <div class="ds-panel-clip"><div class="ds-panel-inner">
+              <p class="ds-lede">Designers who keep a steady flow of on-brand creative coming for your marketing.</p>
+              <div><h4>What they do</h4><ul class="ds-does">
+                <li>Social media graphics</li>
+                <li>Ad creatives for paid campaigns</li>
+                <li>Brochures, flyers and print</li>
+                <li>Email and blog visuals</li>
+              </ul></div>
+              <div><h4>Tools</h4><ul class="ds-tools">
+                <li>Photoshop</li><li>Illustrator</li><li>InDesign</li><li>Canva</li>
+              </ul></div>
+              <div class="ds-panel-cta"><a class="ds-text-link" href="./contact.html?service=design&amp;discipline=Graphic%20Design">Hire a graphic designer <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+            </div></div>
+          </div>
+        </li>
+
+        <li class="ds-item reveal" data-anim="fadeInUp" style="--i: 4" id="motion-graphics">
+          <h3 class="ds-item-head">
+            <button class="ds-toggle" type="button" id="ds-t-motion" aria-expanded="true" aria-controls="ds-p-motion">
+              <span class="ds-num">05</span>
+              <span class="ds-name">Motion Graphics</span>
+              <span class="ds-tags">Animation / Video</span>
+              <span class="ds-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="ds-panel" id="ds-p-motion" role="region" aria-labelledby="ds-t-motion">
+            <div class="ds-panel-clip"><div class="ds-panel-inner">
+              <p class="ds-lede">Designers who bring your brand and product to life with movement.</p>
+              <div><h4>What they do</h4><ul class="ds-does">
+                <li>Animated explainer videos</li>
+                <li>Social video and reels</li>
+                <li>Logo and UI animation</li>
+                <li>Video editing and post-production</li>
+              </ul></div>
+              <div><h4>Tools</h4><ul class="ds-tools">
+                <li>After Effects</li><li>Premiere Pro</li><li>Lottie</li><li>DaVinci Resolve</li>
+              </ul></div>
+              <div class="ds-panel-cta"><a class="ds-text-link" href="./contact.html?service=design&amp;discipline=Motion%20Graphics">Hire a motion designer <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+            </div></div>
+          </div>
+        </li>
+
+        <li class="ds-item reveal" data-anim="fadeInUp" style="--i: 5" id="3d-illustration">
+          <h3 class="ds-item-head">
+            <button class="ds-toggle" type="button" id="ds-t-3d" aria-expanded="true" aria-controls="ds-p-3d">
+              <span class="ds-num">06</span>
+              <span class="ds-name">3D &amp; Illustration</span>
+              <span class="ds-tags">3D / Custom artwork</span>
+              <span class="ds-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="ds-panel" id="ds-p-3d" role="region" aria-labelledby="ds-t-3d">
+            <div class="ds-panel-clip"><div class="ds-panel-inner">
+              <p class="ds-lede">Specialists in custom illustration and 3D visuals that set your brand apart from stock imagery.</p>
+              <div><h4>What they do</h4><ul class="ds-does">
+                <li>Custom illustrations and icon sets</li>
+                <li>3D product renders</li>
+                <li>3D scenes for web and ads</li>
+                <li>Mascots and characters</li>
+              </ul></div>
+              <div><h4>Tools</h4><ul class="ds-tools">
+                <li>Blender</li><li>Cinema 4D</li><li>Procreate</li><li>Illustrator</li>
+              </ul></div>
+              <div class="ds-panel-cta"><a class="ds-text-link" href="./contact.html?service=design&amp;discipline=3D%20%26%20Illustration">Hire a 3D artist or illustrator <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+            </div></div>
+          </div>
+        </li>
+
+        <li class="ds-item reveal" data-anim="fadeInUp" style="--i: 6" id="product-design">
+          <h3 class="ds-item-head">
+            <button class="ds-toggle" type="button" id="ds-t-product" aria-expanded="true" aria-controls="ds-p-product">
+              <span class="ds-num">07</span>
+              <span class="ds-name">Product Design</span>
+              <span class="ds-tags">Apps / Platforms</span>
+              <span class="ds-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="ds-panel" id="ds-p-product" role="region" aria-labelledby="ds-t-product">
+            <div class="ds-panel-clip"><div class="ds-panel-inner">
+              <p class="ds-lede">End-to-end designers who own a product's experience from first idea to release.</p>
+              <div><h4>What they do</h4><ul class="ds-does">
+                <li>Product discovery and user research</li>
+                <li>Feature design from concept to handoff</li>
+                <li>Usability testing and iteration</li>
+                <li>Working alongside PMs and engineers</li>
+              </ul></div>
+              <div><h4>Tools</h4><ul class="ds-tools">
+                <li>Figma</li><li>FigJam</li><li>Jira</li><li>Notion</li>
+              </ul></div>
+              <div class="ds-panel-cta"><a class="ds-text-link" href="./contact.html?service=design&amp;discipline=Product%20Design">Hire a product designer <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+            </div></div>
+          </div>
+        </li>
+
+        <li class="ds-item reveal" data-anim="fadeInUp" style="--i: 7" id="presentation-design">
+          <h3 class="ds-item-head">
+            <button class="ds-toggle" type="button" id="ds-t-presentation" aria-expanded="true" aria-controls="ds-p-presentation">
+              <span class="ds-num">08</span>
+              <span class="ds-name">Presentation Design</span>
+              <span class="ds-tags">Pitch decks / Sales decks</span>
+              <span class="ds-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="ds-panel" id="ds-p-presentation" role="region" aria-labelledby="ds-t-presentation">
+            <div class="ds-panel-clip"><div class="ds-panel-inner">
+              <p class="ds-lede">Designers who turn dense information into slides people actually read.</p>
+              <div><h4>What they do</h4><ul class="ds-does">
+                <li>Investor pitch decks</li>
+                <li>Sales and client presentations</li>
+                <li>Reports and one-pagers</li>
+                <li>Slide templates for your team</li>
+              </ul></div>
+              <div><h4>Tools</h4><ul class="ds-tools">
+                <li>PowerPoint</li><li>Google Slides</li><li>Keynote</li><li>Figma</li>
+              </ul></div>
+              <div class="ds-panel-cta"><a class="ds-text-link" href="./contact.html?service=design&amp;discipline=Presentation%20Design">Hire a presentation designer <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+            </div></div>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ 8. HOW IT WORKS ============ -->
+  <section class="dsn-steps-wrap" aria-labelledby="dsn-steps-title">
+    <div class="dsn-wrap">
+      <h2 id="dsn-steps-title" class="dsn-mid dsn-read" data-dsn="read">From brief to working designer.</h2>
+      <ol class="dsn-steps">
+        <li class="reveal" data-anim="fadeInUp" style="--i: 0"><span>01</span><h3>Share your brief</h3><p>Tell us the discipline, tools and hours you need.</p></li>
+        <li class="reveal" data-anim="fadeInUp" style="--i: 1"><span>02</span><h3>Meet your shortlist</h3><p>Vetted designers whose portfolios match your work. You interview them.</p></li>
+        <li class="reveal" data-anim="fadeInUp" style="--i: 2"><span>03</span><h3>Start a free trial</h3><p>Two weeks at no cost. Continue only if they're the right fit.</p></li>
+        <li class="reveal" data-anim="fadeInUp" style="--i: 3"><span>04</span><h3>Scale as you grow</h3><p>Add designers as projects grow, on month-to-month terms.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ 9. CONTACT / BRIEF ============ -->
+  <section class="dsn-contact" id="ds-brief" aria-labelledby="dsn-contact-title">
+    <div class="dsn-wrap">
+      <p id="dsn-contact-title" class="dsn-big dsn-read" data-dsn="read">
+        Enough about us — let's talk about your team, your product and your goals.
+      </p>
+
+      <div class="dsn-contact-grid">
+        <div class="dsn-contact-side">
+          <span class="dsn-pill">Quick start</span>
+          <p>Build your brief in three clicks. We'll carry your answers straight into the contact form, so there's nothing to retype.</p>
+        </div>
+
+        <!-- Plain GET form: works without JavaScript; contact.html pre-fills from it. -->
+        <form class="ds-brief-form dsn-form" action="./contact.html" method="get">
+          <input type="hidden" name="service" value="design">
+
+          <fieldset>
+            <legend>What kind of designer? <small>(choose any)</small></legend>
+            <div class="ds-chips">
+              <label class="ds-chip"><input type="checkbox" name="discipline" value="UI/UX Design"><span>UI/UX Design</span></label>
+              <label class="ds-chip"><input type="checkbox" name="discipline" value="Web Design"><span>Web Design</span></label>
+              <label class="ds-chip"><input type="checkbox" name="discipline" value="Brand Identity"><span>Brand Identity</span></label>
+              <label class="ds-chip"><input type="checkbox" name="discipline" value="Graphic Design"><span>Graphic Design</span></label>
+              <label class="ds-chip"><input type="checkbox" name="discipline" value="Motion Graphics"><span>Motion Graphics</span></label>
+              <label class="ds-chip"><input type="checkbox" name="discipline" value="3D &amp; Illustration"><span>3D &amp; Illustration</span></label>
+              <label class="ds-chip"><input type="checkbox" name="discipline" value="Product Design"><span>Product Design</span></label>
+              <label class="ds-chip"><input type="checkbox" name="discipline" value="Presentation Design"><span>Presentation Design</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Hours per week</legend>
+            <div class="ds-chips">
+              <label class="ds-chip"><input type="radio" name="hours" value="20"><span>Part-time &middot; 20</span></label>
+              <label class="ds-chip"><input type="radio" name="hours" value="40"><span>Full-time &middot; 40</span></label>
+              <label class="ds-chip"><input type="radio" name="hours" value="flexible"><span>Not sure yet</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Start</legend>
+            <div class="ds-chips">
+              <label class="ds-chip"><input type="radio" name="start" value="asap"><span>As soon as possible</span></label>
+              <label class="ds-chip"><input type="radio" name="start" value="month"><span>Within a month</span></label>
+              <label class="ds-chip"><input type="radio" name="start" value="exploring"><span>Just exploring</span></label>
+            </div>
+          </fieldset>
+
+          <div class="ds-brief-foot">
+            <button type="submit" class="dsn-btn">Continue <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+            <p class="ds-brief-summary" id="dsBriefSummary" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 10. FAQ ============ -->
+  <section class="dsn-faq" aria-labelledby="dsn-faq-title">
+    <div class="dsn-wrap">
+      <div class="row row-cols-lg-2 row-cols-1 grid-spacer-5">
+        <div class="col col-lg-5">
+          <span class="dsn-pill">FAQ</span>
+          <h2 id="dsn-faq-title" class="dsn-mid" style="margin-top: 18px;">Hiring a designer, answered.</h2>
+        </div>
+        <div class="col col-lg-7">
+          <div class="accordion" id="dsFaq">
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#dsfaq1" aria-expanded="true" aria-controls="dsfaq1">Can I see portfolios before I hire?</button>
+              </h2>
+              <div id="dsfaq1" class="accordion-collapse collapse show" data-bs-parent="#dsFaq">
+                <div class="accordion-body">
+                  <div class="accordion-spacer"></div>
+                  <p>Yes. Every shortlist comes with the designers' portfolios, and you interview them yourself before anyone starts. Then the first two weeks are a free trial, so you see real work on your own projects before paying.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dsfaq2" aria-expanded="false" aria-controls="dsfaq2">Who owns the designs?</button>
+              </h2>
+              <div id="dsfaq2" class="accordion-collapse collapse" data-bs-parent="#dsFaq">
+                <div class="accordion-body">
+                  <div class="accordion-spacer"></div>
+                  <p>You do. All intellectual property your designer creates during the engagement is your exclusive property, and every professional signs a binding confidentiality agreement.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dsfaq3" aria-expanded="false" aria-controls="dsfaq3">Will they work in our tools and hours?</button>
+              </h2>
+              <div id="dsfaq3" class="accordion-collapse collapse" data-bs-parent="#dsFaq">
+                <div class="accordion-body">
+                  <div class="accordion-spacer"></div>
+                  <p>Yes. Designers work inside your Figma, Adobe and project-management tools, join your Slack, and are set up to overlap with your business hours for reviews and feedback.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dsfaq4" aria-expanded="false" aria-controls="dsfaq4">How does pricing work?</button>
+              </h2>
+              <div id="dsfaq4" class="accordion-collapse collapse" data-bs-parent="#dsFaq">
+                <div class="accordion-body">
+                  <div class="accordion-spacer"></div>
+                  <p>You pay one simple hourly rate that already covers payroll, HR and compliance, with no recruitment fees. See our <a class="accent-color" href="./pricing.html">pricing</a> for current rates, or start with the free two-week trial.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+
+<!-- ============ FOOTER ============ -->
+<div class="section-footer">
+  <div class="bg-footer-wrapper">
+    <div class="bg-footer">
+      <div class="hero-container position-relative z-2">
+        <div class="d-flex flex-column gspace-2">
+          <div class="row row-cols-lg-5 row-cols-md-2 row-cols-1 grid-spacer-5">
+            <div class="col col-lg-4">
+              <div class="footer-logo-container">
+                <div class="logo-container-footer mb-3">
+                  <img alt="Rekrutify" class="img-fluid rekrutify-logo" src="./assets/images/rekrutify_dark.png" style="max-height: 40px;">
+                </div>
+                <p>One simple hourly rate. Zero recruitment hassle. A team that feels like your own. Rekrutify &mdash; Talent Without Borders.</p>
+                <div class="social-container mt-3">
+                  <div class="social-item-wrapper"><a href="#" class="social-item"><i class="fa-brands fa-facebook"></i></a></div>
+                  <div class="social-item-wrapper"><a href="#" class="social-item"><i class="fa-brands fa-linkedin"></i></a></div>
+                  <div class="social-item-wrapper"><a href="#" class="social-item"><i class="fa-brands fa-instagram"></i></a></div>
+                  <div class="social-item-wrapper"><a href="#" class="social-item"><i class="fa-brands fa-youtube"></i></a></div>
+                </div>
+              </div>
+            </div>
+            <div class="col col-lg-2">
+              <div class="footer-quick-links">
+                <h5>Company</h5>
+                <ul class="footer-list">
+                  <li><a href="./about.html">About Us</a></li>
+                  <li><a href="./team.html">Our Team &amp; Vetting</a></li>
+                  <li><a href="./partner.html">Partnership</a></li>
+                  <li><a href="./pricing.html">Pricing</a></li>
+                  <li><a href="./contact.html">Contact Us</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col col-lg-2">
+              <div class="footer-services-container">
+                <h5>Services</h5>
+                <ul class="footer-list">
+                  <li><a href="./medical-billing.html">Medical Billing</a></li>
+                  <li><a href="customer-support.html">Customer Support</a></li>
+                  <li><a href="it-services.html">IT Services</a></li>
+                  <li><a href="digital-marketing.html">Digital Marketing</a></li>
+                  <li><a href="design-services.html">Design Services</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col col-lg-2">
+              <div class="footer-quick-links">
+                <h5>Resources</h5>
+                <ul class="footer-list">
+                  <li><a href="./blog.html">Blog</a></li>
+                  <li><a href="casestudy.html">Case Studies</a></li>
+                  <li><a href="testimonials.html">Testimonials</a></li>
+                  <li><a href="faqs.html">FAQs</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col col-lg-2">
+              <div class="footer-contact-container">
+                <h5>Contact Info</h5>
+                <ul class="contact-list">
+                  <li>hello@rekrutify.com</li>
+                  <li>+1 (800) 555-0199</li>
+                  <li>Montclair, VA 22025, USA</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-content-spacer"></div>
+        </div>
+        <div class="copyright-container">
+          <span class="copyright">&copy; 2026 Rekrutify LLC. All Rights Reserved. | Registered in Virginia, USA.</span>
+          <div class="d-flex flex-row gspace-2">
+            <a class="legal-link" href="./terms-of-service.html">Terms of Service</a>
+            <a class="legal-link" href="privacy-policy.html">Privacy Policy</a>
+            <a class="legal-link" href="security.html">Security</a>
+          </div>
+        </div>
+        <div class="footer-spacer"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/js/main.js"></script>
+<script src="./assets/js/vendor/lenis.min.js" defer></script>
+<script src="./assets/js/vendor/three.min.js" defer></script>
+<script src="./assets/js/design.js" defer></script>
+</body>
+</html>

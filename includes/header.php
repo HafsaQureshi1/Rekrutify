@@ -58,9 +58,10 @@ $pageDesc  = $pageDesc  ?? "Rekrutify - Talent Without Borders.";
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="<?= h(url("serviceoverview.html")) ?>">Services Overview</a></li>
               <li><a class="dropdown-item" href="<?= h(url("medical-billing.html")) ?>">Medical Billing</a></li>
-              <li><a class="dropdown-item" href="#services">Customer Support</a></li>
-              <li><a class="dropdown-item" href="#services">IT Services</a></li>
-              <li><a class="dropdown-item" href="#services">Digital Marketing</a></li>
+              <li><a class="dropdown-item" href="<?= h(url("customer-support.html")) ?>">Customer Support</a></li>
+              <li><a class="dropdown-item" href="<?= h(url("it-services.html")) ?>">IT Services</a></li>
+              <li><a class="dropdown-item" href="<?= h(url("digital-marketing.html")) ?>">Digital Marketing</a></li>
+              <li><a class="dropdown-item" href="<?= h(url("design-services.html")) ?>">Design Services</a></li>
             </ul>
           </li>
           <li class="nav-item"><a class="nav-link " href="<?= h(url("casestudy.html")) ?>">Case Studies</a></li>
@@ -94,15 +95,16 @@ $pageDesc  = $pageDesc  ?? "Rekrutify - Talent Without Borders.";
       <li><a href="#about">About Us</a></li>
       <li class="sidebar-dropdown">
         <div class="dropdown-header">
-          <a href="#services">Services</a>
+          <a href="<?= h(url("serviceoverview.html")) ?>">Services</a>
           <button class="sidebar-dropdown-btn"><i class="fa-solid fa-angle-down"></i></button>
         </div>
         <ul class="sidebar-dropdown-menu">
           <li><a href="<?= h(url("serviceoverview.html")) ?>">Services Overview</a></li>
           <li><a href="<?= h(url("medical-billing.html")) ?>">Medical Billing</a></li>
-          <li><a href="#services">Customer Support</a></li>
-          <li><a href="#services">IT Services</a></li>
-          <li><a href="#services">Digital Marketing</a></li>
+          <li><a href="<?= h(url("customer-support.html")) ?>">Customer Support</a></li>
+          <li><a href="<?= h(url("it-services.html")) ?>">IT Services</a></li>
+          <li><a href="<?= h(url("digital-marketing.html")) ?>">Digital Marketing</a></li>
+          <li><a href="<?= h(url("design-services.html")) ?>">Design Services</a></li>
         </ul>
       </li>
       <li class="below-dropdown"><a href="<?= h(url("casestudy.html")) ?>">Case Studies</a></li>

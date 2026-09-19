@@ -37,9 +37,10 @@
                 <h5>Services</h5>
                 <ul class="footer-list">
                   <li><a href="<?= h(url("medical-billing.html")) ?>">Medical Billing</a></li>
-                  <li><a href="#services">Customer Support</a></li>
-                  <li><a href="#services">IT Services</a></li>
-                  <li><a href="#services">Digital Marketing</a></li>
+                  <li><a href="<?= h(url("customer-support.html")) ?>">Customer Support</a></li>
+                  <li><a href="<?= h(url("it-services.html")) ?>">IT Services</a></li>
+                  <li><a href="<?= h(url("digital-marketing.html")) ?>">Digital Marketing</a></li>
+                  <li><a href="<?= h(url("design-services.html")) ?>">Design Services</a></li>
                 </ul>
               </div>
             </div>
