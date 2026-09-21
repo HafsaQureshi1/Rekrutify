@@ -1,0 +1,14 @@
+# Vercel serves this site as plain static files and cannot run PHP.
+# Keep the PHP admin/blog engine and its data out of the deployment: on a
+# static host these would be downloadable as source (includes/config.php holds
+# the admin password hash). The generated blog.html, blog/*.html and 404.html
+# are what the public site uses.
+admin
+includes
+templates
+tools
+data
+*.php
+*.md
+.htaccess
+links.txt

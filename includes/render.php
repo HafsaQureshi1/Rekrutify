@@ -85,6 +85,22 @@ function build_static_site(): array
         $written[] = 'blog.html';
     }
 
+    // Static hosts (Vercel, Netlify, GitHub Pages) cannot run 404.php; they
+    // serve a root-level 404.html for every missing URL instead. That page
+    // is shown at whatever depth the missing URL had, so relative links would
+    // break — its links are root-absolute. Apache keeps using 404.php.
+    url_prefix('/');
+    if (file_put_contents(dirname(STATIC_LISTING) . '/404.html', render_page(
+        'error-404.php',
+        [],
+        'Error 404 - Rekrutify - Talent Without Borders',
+        'The page you were looking for could not be found.'
+    ), LOCK_EX) === false) {
+        $errors[] = 'Could not write 404.html';
+    } else {
+        $written[] = '404.html';
+    }
+
     url_prefix(null, true);
 
     // Drop article files that no longer correspond to a published post.
