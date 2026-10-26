@@ -89,10 +89,12 @@
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
+        var delay = entry.target.getAttribute('data-delay');
+        if (delay) entry.target.style.animationDelay = delay + 'ms';
         entry.target.classList.add('is-visible');
         io.unobserve(entry.target);
       });
-    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    }, { threshold: 0.15 }); // same as the live site's AnimateOnScroll (fires once)
     reveals.forEach(function (el) { io.observe(el); });
   } else {
     reveals.forEach(function (el) { el.classList.add('is-visible'); });
@@ -460,5 +462,100 @@
         msg.value = lines.join('\n');
       }
     }
+  }
+
+  /* ---------- Calendly ----------
+     Every booking link carries data-calendly. Put the real scheduling link
+     here once and every page picks it up. */
+  var CALENDLY_URL = 'https://calendly.com/rekrutifyllc/30min';
+  var calLinks = document.querySelectorAll('[data-calendly]');
+  for (var ci = 0; ci < calLinks.length; ci++) {
+    calLinks[ci].setAttribute('href', CALENDLY_URL);
+    calLinks[ci].setAttribute('target', '_blank');
+    calLinks[ci].setAttribute('rel', 'noopener');
+  }
+
+  /* ---------- Pricing popup ----------
+     Buttons in the pricing cards carry data-plan. Clicking one opens a short
+     enquiry form for that plan instead of leaving for contact.html (which
+     stays the href, so the button still works without JS). Like the contact
+     form, it validates the email and shows a confirmation; it posts nowhere. */
+  var planButtons = document.querySelectorAll('[data-plan]');
+  if (planButtons.length) {
+    var modal = document.createElement('div');
+    modal.className = 'plan-modal';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-labelledby', 'plan-modal-title');
+    modal.innerHTML =
+      '<div class="card form-layout">' +
+        '<button type="button" class="plan-modal-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>' +
+        '<div class="sub-heading"><i class="fa-regular fa-circle-dot"></i><span class="plan-modal-plan"></span></div>' +
+        '<h3 class="title-heading" id="plan-modal-title"></h3>' +
+        '<div class="alert success hidden plan-modal-ok"><span class="check-icon"><i class="fa-solid fa-check"></i></span><p class="text-center">Thank you! We\'ll be in touch within one business day.</p></div>' +
+        '<div class="alert error hidden plan-modal-bad"><span class="cross-icon"><i class="fa-solid fa-xmark"></i></span><p class="text-center">Oops! Please enter a valid email.</p></div>' +
+        '<form class="form" novalidate>' +
+          '<input type="hidden" name="plan">' +
+          '<input type="text" name="name" placeholder="Full Name" autocomplete="name">' +
+          '<input type="email" name="email" placeholder="Email Address" autocomplete="email" required>' +
+          '<input type="text" name="company" placeholder="Company Name" autocomplete="organization">' +
+          '<textarea name="message" rows="3" placeholder="Which role are you looking to fill?"></textarea>' +
+          '<div class="form-button-container">' +
+            '<button type="submit" class="btn btn-accent"><span class="btn-title"><span>Send Request</span></span><span class="icon-circle"><i class="fa-solid fa-arrow-right"></i></span></button>' +
+          '</div>' +
+        '</form>' +
+        '<p class="plan-modal-alt">Prefer to talk first? <a href="' + CALENDLY_URL + '" target="_blank" rel="noopener" data-calendly>Book a call on Calendly</a></p>' +
+      '</div>';
+    document.body.appendChild(modal);
+
+    var pmForm = modal.querySelector('form');
+    var pmOk = modal.querySelector('.plan-modal-ok');
+    var pmBad = modal.querySelector('.plan-modal-bad');
+    var pmEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    var pmLastFocus = null;
+
+    var closeModal = function () {
+      modal.classList.remove('is-open');
+      document.body.classList.remove('plan-modal-open');
+      if (pmLastFocus) pmLastFocus.focus();
+    };
+    var openModal = function (btn) {
+      var plan = btn.getAttribute('data-plan');
+      var label = btn.querySelector('.btn-title span');
+      modal.querySelector('.plan-modal-plan').textContent = plan;
+      modal.querySelector('#plan-modal-title').textContent = label ? label.textContent : 'Get Started';
+      pmForm.reset();
+      pmForm.elements.plan.value = plan;
+      pmOk.classList.add('hidden');
+      pmBad.classList.add('hidden');
+      pmLastFocus = btn;
+      modal.classList.add('is-open');
+      document.body.classList.add('plan-modal-open');
+      setTimeout(function () { pmForm.elements.name.focus(); }, 50);
+    };
+
+    for (var pi = 0; pi < planButtons.length; pi++) {
+      planButtons[pi].addEventListener('click', function (e) {
+        e.preventDefault();
+        openModal(this);
+      });
+    }
+    modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+    modal.querySelector('.plan-modal-close').addEventListener('click', closeModal);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    });
+    pmForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!pmEmail.test(pmForm.elements.email.value)) {
+        pmBad.classList.remove('hidden');
+        pmOk.classList.add('hidden');
+        return;
+      }
+      pmBad.classList.add('hidden');
+      pmOk.classList.remove('hidden');
+      pmForm.reset();
+      setTimeout(closeModal, 2500);
+    });
   }
 })();

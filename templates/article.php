@@ -3,7 +3,7 @@
   <div class="banner-layout-wrapper banner-inner">
     <div class="banner-layout">
       <div class="d-flex flex-column text-center align-items-center gspace-2">
-        <h2 class="title-heading reveal" data-anim="fadeInUp"><?= h($post['title']) ?></h2>
+        <h2 class="title-heading reveal" data-anim="fadeInRight"><?= h($post['title']) ?></h2>
         <nav class="breadcrumb">
           <a href="<?= h(url("index.html")) ?>" class="gspace-2">Home</a><span class="separator-link">/</span><p class="current-page">Blog</p>
         </nav>
@@ -72,11 +72,11 @@
       <div class="newsletter-layout">
         <div class="spacer"></div>
         <div class="d-flex flex-column gspace-5 position-relative z-2">
-          <div class="d-flex flex-column gspace-2 reveal" data-anim="fadeInUp">
+          <div class="d-flex flex-column gspace-2 reveal" data-anim="fadeInLeft">
             <h3 class="title-heading">You scrolled so far. You want this. Trust us.</h3>
             <p>Get exclusive insights, trends, and strategies delivered straight to your inbox. Subscribe now!</p>
           </div>
-          <form id="newsletterForm" class="needs-validation reveal" data-anim="fadeInUp" novalidate>
+          <form id="newsletterForm" class="needs-validation reveal" data-anim="fadeInRight" novalidate>
             <div class="input-container">
               <input id="newsletter-email" placeholder="Give your best email" required type="email" name="newsletter-email">
             </div>

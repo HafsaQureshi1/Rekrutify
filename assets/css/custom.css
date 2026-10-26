@@ -10,14 +10,26 @@
    dies early, which is easy to do on a file:// page — the page still shows
    everything instead of leaving half the sections at opacity 0. */
 .js .reveal { opacity: 0; }
-.reveal.is-visible { opacity: 1; animation-duration: 1.25s; animation-fill-mode: both; }
+/* Matches the live site's AnimateOnScroll + animate.css: 1.25s 'ease', both
+   fill, and the element travels its own full size (translate 100%).
+   data-speed="fast|slow" = .75s / 2s; data-delay is applied by main.js. */
+.reveal.is-visible { opacity: 1; animation-duration: 1.25s; animation-timing-function: ease; animation-fill-mode: both; }
+.reveal.is-visible[data-speed="fast"] { animation-duration: .75s; }
+.reveal.is-visible[data-speed="slow"] { animation-duration: 2s; }
 .reveal.is-visible[data-anim="fadeInUp"]    { animation-name: rkFadeInUp; }
+.reveal.is-visible[data-anim="fadeInDown"]  { animation-name: rkFadeInDown; }
 .reveal.is-visible[data-anim="fadeInLeft"]  { animation-name: rkFadeInLeft; }
 .reveal.is-visible[data-anim="fadeInRight"] { animation-name: rkFadeInRight; }
 
-@keyframes rkFadeInUp    { from { opacity: 0; transform: translate3d(0, 60px, 0); } to { opacity: 1; transform: none; } }
-@keyframes rkFadeInLeft  { from { opacity: 0; transform: translate3d(-60px, 0, 0); } to { opacity: 1; transform: none; } }
-@keyframes rkFadeInRight { from { opacity: 0; transform: translate3d(60px, 0, 0); } to { opacity: 1; transform: none; } }
+@keyframes rkFadeInUp    { from { opacity: 0; transform: translate3d(0, 100%, 0); } to { opacity: 1; transform: translateZ(0); } }
+@keyframes rkFadeInDown  { from { opacity: 0; transform: translate3d(0, -100%, 0); } to { opacity: 1; transform: translateZ(0); } }
+@keyframes rkFadeInLeft  { from { opacity: 0; transform: translate3d(-100%, 0, 0); } to { opacity: 1; transform: translateZ(0); } }
+@keyframes rkFadeInRight { from { opacity: 0; transform: translate3d(100%, 0, 0); } to { opacity: 1; transform: translateZ(0); } }
+
+/* Like the live site: elements sliding in from the side must not widen the page. */
+/* clip, not hidden: hidden would turn body into a scroll container and break
+   the sticky/pinned sections on design-services.html. */
+html, body { overflow-x: clip; }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal, .reveal.is-visible { opacity: 1; animation: none; }
@@ -88,3 +100,297 @@
 
 /* ---------- Light mode logo/img handled in JS; icon state ---------- */
 #themeSwitch { cursor: pointer; }
+
+/* ---------- Home: demo video between hero and partners ---------- */
+.section-demo-video { padding: 60px 20px; }
+/* Video card: the clip plays as a cropped, muted, slowly drifting backdrop,
+   under a vignette, with one centred heading, a glowing gradient frame and
+   thin viewfinder corners for a cinematic feel. */
+.demo-video-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: clamp(420px, 42vw, 600px);
+  border-radius: var(--global-border-radius, 25px);
+  background: #050807;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 56px;
+  box-shadow: 0 0 0 1px rgba(32, 166, 120, .28), 0 40px 120px -50px rgba(32, 166, 120, .45), 0 30px 60px -30px rgba(0, 0, 0, .9);
+}
+/* Gradient hairline frame */
+.demo-video-card::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; z-index: 2; pointer-events: none;
+  background: linear-gradient(135deg, rgba(64, 214, 160, .9), rgba(255, 255, 255, .08) 35%, rgba(255, 255, 255, .04) 65%, rgba(64, 214, 160, .7));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+}
+.demo-video-media { position: absolute; inset: 0; z-index: -2; pointer-events: none; overflow: hidden; container-type: size; }
+/* Cover the card at 16:9 (container units size it by whichever side runs out
+   first), scaled up so YouTube's edges and title bar are cropped, and drifting
+   slowly (Ken Burns) so the frame never feels static. */
+.demo-video-media iframe {
+  position: absolute; top: 50%; left: 50%;
+  width: max(100cqw, 177.78cqh);
+  height: max(100cqh, 56.25cqw);
+  transform: translate(-50%, -50%) scale(1.2);
+  animation: rkVideoDrift 24s ease-in-out infinite alternate;
+  border: 0;
+}
+@keyframes rkVideoDrift { to { transform: translate(-50%, -50%) scale(1.3); } }
+.demo-video-shade {
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    /* Light touch: just enough behind the heading to read it, video stays visible. */
+    radial-gradient(ellipse 55% 45% at 50% 50%, rgba(3, 6, 5, .38) 0%, rgba(3, 6, 5, .12) 70%, rgba(3, 6, 5, .28) 100%),
+    linear-gradient(180deg, rgba(3, 6, 5, .25) 0%, rgba(3, 6, 5, 0) 25%, rgba(3, 6, 5, 0) 75%, rgba(3, 6, 5, .35) 100%),
+    radial-gradient(ellipse 50% 60% at 50% 110%, rgba(32, 166, 120, .35), transparent 70%);
+}
+/* Viewfinder corners */
+.demo-video-corner { position: absolute; width: 34px; height: 34px; border: 0 solid rgba(255, 255, 255, .55); z-index: 1; pointer-events: none; }
+.demo-video-corner.tl { top: 28px; left: 28px; border-top-width: 2px; border-left-width: 2px; border-top-left-radius: 10px; }
+.demo-video-corner.tr { top: 28px; right: 28px; border-top-width: 2px; border-right-width: 2px; border-top-right-radius: 10px; }
+.demo-video-corner.bl { bottom: 28px; left: 28px; border-bottom-width: 2px; border-left-width: 2px; border-bottom-left-radius: 10px; }
+.demo-video-corner.br { bottom: 28px; right: 28px; border-bottom-width: 2px; border-right-width: 2px; border-bottom-right-radius: 10px; }
+.demo-video-content { max-width: 860px; position: relative; z-index: 1; }
+.demo-video-content .title-heading {
+  margin: 0; color: #fff; -webkit-text-fill-color: #fff; background: none;
+  font-size: clamp(30px, 4.2vw, 60px); line-height: 1.1; letter-spacing: -.02em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, .35), 0 8px 40px rgba(0, 0, 0, .6);
+}
+.demo-video-content .title-heading span {
+  background: linear-gradient(90deg, #8affd2, #3fdca0);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  /* text-shadow does not work on clipped text, so lift it with drop-shadow */
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .55)) drop-shadow(0 6px 24px rgba(0, 0, 0, .45));
+}
+@media (max-width: 575px) {
+  .demo-video-card { padding: 40px 24px; min-height: 360px; }
+  .demo-video-corner { width: 24px; height: 24px; }
+  .demo-video-corner.tl, .demo-video-corner.tr { top: 16px; }
+  .demo-video-corner.bl, .demo-video-corner.br { bottom: 16px; }
+  .demo-video-corner.tl, .demo-video-corner.bl { left: 16px; }
+  .demo-video-corner.tr, .demo-video-corner.br { right: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { .demo-video-media iframe { animation: none; } }
+
+/* ---------- Pricing popup (opened by [data-plan] buttons) ---------- */
+.plan-modal {
+  position: fixed; inset: 0; z-index: 99999;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, .75);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  opacity: 0; visibility: hidden;
+  transition: opacity .3s ease, visibility .3s ease;
+}
+.plan-modal.is-open { opacity: 1; visibility: visible; }
+.plan-modal .form-layout {
+  position: relative;
+  width: 100%; max-width: 620px; height: auto;
+  max-height: calc(100vh - 40px); overflow-y: auto;
+  gap: 20px;
+  transform: translateY(30px);
+  transition: transform .3s ease;
+}
+.plan-modal.is-open .form-layout { transform: none; }
+.plan-modal .form-layout { background-color: #1f1f1f !important; }
+body.lightmode .plan-modal .form-layout { background-color: #d1f4f9 !important; }
+.plan-modal-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid var(--accent-color-3);
+  background: transparent; color: var(--primary); font-size: 18px;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+.plan-modal-close:hover { background: var(--accent-color); color: #000; }
+.plan-modal .form { display: flex; flex-direction: column; gap: 16px; }
+.plan-modal-alt { text-align: center; margin: 0; }
+.plan-modal-alt a { color: var(--accent-color); text-decoration: underline; }
+body.plan-modal-open { overflow: hidden; }
+
+/* ===========================================================
+   Breathing room + calmer type scale (client request 2026-10-26).
+   The header and the home hero are deliberately left exactly as the
+   original clone (client asked for them back).
+   The original clone ran edge-to-edge cards with 20-30px gutters and
+   100px / 64px headings, which felt cramped and oversized on laptops.
+   Desktop only gets the wider gutters; the type scale uses clamp() so
+   it shrinks smoothly down to phone size.
+   =========================================================== */
+/* Container + gutter benchmarked on Toptal, Deel, Turing, Andela, Remote
+   (2026-10-26, 1440px viewport): content 1200-1230px wide, 80-120px side
+   space, 80-120px between sections, h2 44-54px, body copy 16-20px. */
+/* Client found 1200px / 80px a little too roomy at the sides: 1280px / 64px. */
+:root { --site-gutter: clamp(20px, 4vw, 64px); --site-width: 1280px; }
+/* Side padding that lines every section up on the same left/right edge:
+   the gutter on small screens, centred to --site-width on wide ones. */
+:root { --site-pad: max(var(--site-gutter), calc((100% - var(--site-width)) / 2)); }
+
+.hero-container { max-width: var(--site-width); }
+/* Header, hero and footer keep the original container widths. */
+.section-banner .hero-container,
+.section-footer .hero-container { max-width: 1280px; }
+@media (min-width: 1400px) {
+  .section-banner .hero-container,
+  .section-footer .hero-container { max-width: 1360px; }
+}
+
+
+@media (min-width: 992px) {
+  .section-partner,
+  .section-guide,
+  .section-wrapper-digital-process,
+  .section-demo-video,
+  .team-wrapper { padding-left: var(--site-pad); padding-right: var(--site-pad); }
+  .section { padding-top: 96px; padding-bottom: 96px; padding-left: var(--site-pad); padding-right: var(--site-pad); }
+  .section.p-0 { padding: 0 var(--site-pad) !important; }
+  .section.pt-0 { padding-top: 0 !important; }
+  .section.pb-0 { padding-bottom: 0 !important; }
+  .section-demo-video { padding-top: 96px; padding-bottom: 96px; }
+}
+@media (min-width: 1400px) {
+  .section { padding-top: 112px; padding-bottom: 112px; }
+}
+
+/* Heading scale (h1 is left to the original: it is only the home hero). */
+h2 { font-size: 28px; }
+h3 { font-size: 22px; }
+h4 { font-size: 18px; }
+h5 { font-size: 17px; }
+h6 { font-size: 16px; }
+@media (min-width: 768px) {
+  h2 { font-size: 34px; }
+  h3 { font-size: 26px; }
+  h4 { font-size: 20px; }
+  h5 { font-size: 18px; }
+}
+@media (min-width: 992px) {
+  h2 { font-size: 40px; }
+  h3 { font-size: 24px; }
+  h4 { font-size: 20px; }
+  h5 { font-size: 18px; }
+  h6 { font-size: 16px; }
+}
+@media (min-width: 1200px) {
+  h2 { font-size: 44px; }
+}
+/* Body copy: 17px / 1.65 on desktop (competitors use 16-20px). */
+@media (min-width: 992px) {
+  body > :not(.section-banner):not(.navbar-wrapper) p:not([class]):not(.card-service p) { font-size: 17px; line-height: 1.65; }
+}
+
+/* ---------- Compact desktop layout (client: each section should fit one
+   laptop screen). Tightens the clone's generous paddings and gaps. ---------- */
+@media (min-width: 992px) {
+  /* Not inside the header or hero, which keep their original spacing. */
+  body > :not(.section-banner):not(.navbar-wrapper) .gspace-3 { gap: 26px; }
+  body > :not(.section-banner):not(.navbar-wrapper) .gspace-4 { gap: 36px; }
+  body > :not(.section-banner):not(.navbar-wrapper) .gspace-5 { gap: 48px; }
+  .grid-spacer-3 { --bs-gutter-x: 22px; --bs-gutter-y: 22px; }
+  .grid-spacer-4 { --bs-gutter-x: 26px; --bs-gutter-y: 26px; }
+  .grid-spacer-5 { --bs-gutter-x: 32px; --bs-gutter-y: 32px; }
+
+  .guide-banner { padding: 140px 30px 56px; }
+  .bg-footer { padding-top: 64px; }
+
+  .card-partner { gap: 28px; padding-bottom: 28px; }
+  /* Case studies keep their original height (client); only the side padding is tighter. */
+  .card-case-studies { padding: 50px 32px; gap: 50px; }
+  .newsletter-layout { gap: 28px; padding: 0 36px 36px; }
+
+  .card-pricing { padding: 22px; gap: 16px; }
+  .card-pricing-title { padding: 36px 24px 36px 0; }
+  .pricing-highlight-box { padding: 20px 0 20px 20px; gap: 18px; }
+
+  .form-layout { gap: 20px; padding: 32px 28px; }
+  body > :not(.section-banner):not(.navbar-wrapper) .icon-circle { width: 46px; height: 46px; font-size: 20px; }
+}
+
+/* ---------- Pricing popup: smaller and lighter ---------- */
+.plan-modal .form-layout { max-width: 500px; padding: 28px 24px; gap: 14px; }
+.plan-modal .title-heading { font-size: clamp(20px, 2vw, 26px); margin: 0; }
+.plan-modal .form { gap: 10px; }
+.plan-modal .form input,
+.plan-modal .form textarea { padding: 12px 20px; font-size: 14px; }
+.plan-modal .form textarea { border-radius: 20px; }
+.plan-modal .icon-circle { width: 40px; height: 40px; font-size: 18px; }
+.plan-modal .alert p { margin: 0; font-size: 14px; }
+.plan-modal-close { width: 34px; height: 34px; font-size: 15px; top: 12px; right: 12px; }
+.plan-modal-alt { font-size: 14px; }
+
+/* ---------- Per-section trims so each block fits one laptop screen ---------- */
+@media (min-width: 992px) {
+  /* Why choose us */
+  .chooseus-icon-wrapper { min-height: 0; }
+  .chooseus-content { padding: 20px 22px; gap: 10px; }
+  .card-chooseus { min-height: 0; }
+  /* Testimonials */
+  .card-testimonial { padding: 22px; gap: 16px; }
+  .card-testimonial-header-title { padding: 22px; gap: 14px; }
+  .card-testimonial-reviewer { gap: 16px; padding: 20px 24px; }
+  /* Hiring process: the card is also a .section, so it was inheriting the
+     page-section padding (112px top/bottom). Give it card padding instead. */
+  .digital-process-banner.section { padding: 64px 64px 72px; }
+  .digital-process-content { gap: 48px; }
+  .digital-process-steps { padding: 36px 28px; gap: 0; }
+  .digital-process-step { gap: 24px; }
+  .digital-process-step p { font-size: 16px; line-height: 1.6; margin: 0; }
+  /* Pricing */
+  .card-pricing-title { padding: 24px 22px 24px 0; }
+  .core-benefits { padding-top: 14px; padding-bottom: 14px; }
+  /* Blog */
+  .card-blog .blog-image { aspect-ratio: 16 / 10; }
+  .card-blog .card-body { padding: 20px 22px; gap: 12px; }
+}
+@media (min-width: 992px) {
+  .card-blog .blog-link { font-size: 20px; line-height: 1.35; }
+}
+
+/* ---------- Heading consistency fixes ---------- */
+/* partner.html used Bootstrap's display-3 (64px); match every other h2. */
+.display-3 { font-size: 28px; }
+@media (min-width: 768px) { .display-3 { font-size: 34px; } }
+@media (min-width: 992px) { .display-3 { font-size: 40px; } }
+@media (min-width: 1200px) { .display-3 { font-size: 44px; } }
+@media (min-width: 992px) {
+  /* Headings inside a blog article body sit one step below page headings */
+  .col-lg-10 > .gspace-2 > h2:not([class]) { font-size: 30px; }
+  .col-lg-10 > .gspace-2 > h3:not([class]) { font-size: 23px; }
+}
+
+/* ---------- Service cards: keep the original card exactly (client request) ---------- */
+.card-service h4 { font-size: var(--font-size-5xl); }
+@media (min-width: 992px) {
+  body .section .card-service .icon-circle { width: 59px; height: 59px; font-size: var(--font-size-6xl); }
+  body .section .card-service .gspace-3 { gap: 30px; }
+}
+
+/* ---------- Partner, newsletter and guide-banner headings: same size as section headings ---------- */
+.card-partner h3.title-heading,
+.newsletter-layout h3.title-heading,
+  .guide-banner h3.title-heading { font-size: 28px; line-height: 1.2; }
+@media (min-width: 768px) {
+  .card-partner h3.title-heading,
+  .newsletter-layout h3.title-heading,
+  .guide-banner h3.title-heading { font-size: 34px; }
+}
+@media (min-width: 992px) {
+  .card-partner h3.title-heading,
+  .newsletter-layout h3.title-heading,
+  .guide-banner h3.title-heading { font-size: 40px; }
+}
+@media (min-width: 1200px) {
+  .card-partner h3.title-heading,
+  .newsletter-layout h3.title-heading,
+  .guide-banner h3.title-heading { font-size: 44px; }
+}
+
+/* ---------- Inner-page banner headings (About, Contact, Pricing...): original sizes ---------- */
+.section-banner h2 { font-size: var(--font-size-14xl); }
+@media screen and (max-width: 991px) { .section-banner h2 { font-size: var(--font-size-13xl); } }
+@media screen and (max-width: 767px) { .section-banner h2 { font-size: var(--font-size-9xl); } }
+@media screen and (max-width: 480px) { .section-banner h2 { font-size: var(--font-size-6xl); } }
+@media screen and (max-width: 320px) { .section-banner h2 { font-size: var(--font-size-4xl); } }

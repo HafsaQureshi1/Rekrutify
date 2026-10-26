@@ -40,7 +40,7 @@
                   <li><a href="<?= h(url("customer-support.html")) ?>">Customer Support</a></li>
                   <li><a href="<?= h(url("it-services.html")) ?>">IT Services</a></li>
                   <li><a href="<?= h(url("digital-marketing.html")) ?>">Digital Marketing</a></li>
-                  <li><a href="<?= h(url("design-services.html")) ?>">Design Services</a></li>
+                  <li><a href="<?= h(url("design-services.html")) ?>">Design &amp; 3D Services</a></li>
                 </ul>
               </div>
             </div>
