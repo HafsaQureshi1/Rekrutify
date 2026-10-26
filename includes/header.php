@@ -110,6 +110,7 @@ $pageDesc  = $pageDesc  ?? "Rekrutify - Talent Without Borders.";
       <li class="below-dropdown"><a href="<?= h(url("casestudy.html")) ?>">Case Studies</a></li>
       <li class="below-dropdown"><a href="<?= h(url("pricing.html")) ?>">Pricing</a></li>
       <li class="below-dropdown"><a href="<?= h(url("contact.html")) ?>">Contact Us</a></li>
+      <li class="sidebar-cta"><a href="<?= h(url("contact.html")) ?>" class="btn btn-accent"><div class="btn-title"><span>Start Free Trial</span></div><div class="icon-circle"><i class="fa-solid fa-arrow-right"></i></div></a></li>
     </ul>
   </div>
 </div>
